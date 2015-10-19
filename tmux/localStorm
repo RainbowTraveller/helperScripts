@@ -1,0 +1,41 @@
+tmux has-session -t LocalStorm
+if [ $? != 0  ]
+then
+    
+    tmux new-session -s LocalStorm -n Zookeeper -d
+    tmux send-keys -t LocalStorm:1 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:1 'cd ~/WFMilind/zookeeper-3.4.6/' C-m
+
+    tmux new-window -n Kafka-Broker -t LocalStorm
+    tmux send-keys -t LocalStorm:2 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:2 'cd ~/WFMilind/kafka_2.9.1-0.8.2.1' C-m
+
+    tmux new-window -n Kafka-Producer -t LocalStorm
+    tmux send-keys -t LocalStorm:3 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:3 'cd ~/WFMilind/codebase/kafka' C-m
+
+    tmux new-window -n Kafka-Consumer -t LocalStorm
+    tmux send-keys -t LocalStorm:4 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:4 'cd ~/WFMilind/kafka_2.9.1-0.8.2.1' C-m
+
+    tmux new-window -n Nimbus -t LocalStorm
+    tmux send-keys -t LocalStorm:5 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:5 'cd  ~/WFMilind/apache-storm-0.9.4' C-m
+
+    tmux new-window -n Supervisor -t LocalStorm
+    tmux send-keys -t LocalStorm:6 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:6 'cd ~/WFMilind/apache-storm-0.9.4' C-m
+
+    tmux new-window -n UI -t LocalStorm
+    tmux send-keys -t LocalStorm:7 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:7 'cd ~/WFMilind/apache-storm-0.9.4' C-m
+
+    tmux new-window -n Logs -t LocalStorm
+    tmux send-keys -t LocalStorm:8 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:8 'cd ~/WFMilind/apache-storm-0.9.4/logs' C-m
+
+    tmux new-window -n Topology -t LocalStorm
+    tmux send-keys -t LocalStorm:9 'source ~/.bashrc' C-m
+    tmux send-keys -t LocalStorm:9 'cd ~/WFMilind/codebase/storm/' C-m
+fi
+tmux attach -t LocalStorm

@@ -1,0 +1,38 @@
+tmux has-session -t ImageStitching
+if [ $? != 0  ]
+then
+    tmux new-session -s ImageStitching -n Workspace-1 -d
+    tmux send-keys -t ImageStitching:1 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:1 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Workspace-2 -t ImageStitching
+    tmux send-keys -t ImageStitching:2 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:2 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Stitching-1 -t ImageStitching
+    tmux send-keys -t ImageStitching:3 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:3 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Stitching-2 -t ImageStitching
+    tmux send-keys -t ImageStitching:4 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:4 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Stitching-3 -t ImageStitching
+    tmux send-keys -t ImageStitching:5 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:5 'cd  ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Stitching-4 -t ImageStitching
+    tmux send-keys -t ImageStitching:6 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:6 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Stitching-5 -t ImageStitching
+    tmux send-keys -t ImageStitching:7 'source ~/.bashrc' C-m
+    tmux send-keys -t ImageStitching:7 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n FTP -t ImageStitching
+    tmux send-keys -t ImageStitching:8 'source ~/.bashrc' C-m
+
+    tmux new-window -n Admin-DB -t ImageStitching
+    tmux send-keys -t ImageStitching:9 'source ~/.bashrc' C-m
+fi
+tmux attach -t ImageStitching

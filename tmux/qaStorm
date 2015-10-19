@@ -1,0 +1,45 @@
+tmux has-session -t QAStorm
+if [ $? != 0  ]
+then
+    tmux new-session -s QAStorm -n Zookeeper-Nimbus -d
+    tmux split-window -h -t QAStorm:1
+    tmux send-keys -t QAStorm:1.1 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:1.1 'sudo su' C-m
+    tmux send-keys -t QAStorm:1.2 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:1.2 'sudo su' C-m
+
+    tmux new-window -n Supervisor-UI -t QAStorm
+    tmux split-window -h -t QAStorm:2
+    tmux send-keys -t QAStorm:2.1 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:2.1 'sudo su' C-m
+    tmux send-keys -t QAStorm:2.2 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:2.2 'sudo su' C-m
+
+    tmux new-window -n Console_Pub-Sub -t QAStorm
+    tmux split-window -h -t QAStorm:3
+    tmux send-keys -t QAStorm:3.1 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:3.1 'sudo su' C-m
+    tmux send-keys -t QAStorm:3.2 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:3.2 'sudo su' C-m
+
+    tmux new-window -n Broker -t QAStorm
+    tmux send-keys -t QAStorm:4 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:4 'sudo su' C-m
+
+    tmux new-window -n Topology -t QAStorm
+    tmux send-keys -t QAStorm:5 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:5 'sudo su' C-m
+
+    tmux new-window -n Build -t QAStorm
+    tmux send-keys -t QAStorm:6 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:6 'sudo su' C-m
+
+    tmux new-window -n Logs -t QAStorm
+    tmux send-keys -t QAStorm:7 'ssh mongo-qa' C-m
+    tmux send-keys -t QAStorm:7 'sudo su' C-m
+
+    tmux new-window -n Saavn-QA -t QAStorm
+    tmux send-keys -t QAStorm:8 'ssh saavn-qa' C-m
+    tmux send-keys -t QAStorm:8 'sudo su' C-m
+fi
+tmux attach -t QAStorm

@@ -1,0 +1,36 @@
+tmux has-session -t ProdStorm
+if [ $? != 0  ]
+then
+    tmux new-session -s ProdStorm -n Storm-1 -d
+    tmux send-keys -t ProdStorm:1 'ssh storm1' C-m
+    tmux send-keys -t ProdStorm:1 'sudo su' C-m
+
+    tmux new-window -n Storm-2 -t ProdStorm
+    tmux send-keys -t ProdStorm:2 'ssh storm2' C-m
+    tmux send-keys -t ProdStorm:2 'sudo su' C-m
+
+    tmux new-window -n Storm-3 -t ProdStorm
+    tmux send-keys -t ProdStorm:3 'ssh storm3' C-m
+    tmux send-keys -t ProdStorm:3 'sudo su' C-m
+
+    tmux new-window -n Storm-4 -t ProdStorm
+    tmux send-keys -t ProdStorm:4 'ssh storm4' C-m
+    tmux send-keys -t ProdStorm:4 'sudo su' C-m
+
+    tmux new-window -n Storm-5 -t ProdStorm
+    tmux send-keys -t ProdStorm:5 'ssh storm5' C-m
+    tmux send-keys -t ProdStorm:5 'sudo su' C-m
+
+    tmux new-window -n Kafka-1 -t ProdStorm
+    tmux send-keys -t ProdStorm:6 'ssh kafka1' C-m
+    tmux send-keys -t ProdStorm:6 'sudo su' C-m
+
+    tmux new-window -n Kafka-2 -t ProdStorm
+    tmux send-keys -t ProdStorm:7 'ssh kafka2' C-m
+    tmux send-keys -t ProdStorm:7 'sudo su' C-m
+
+    tmux new-window -n Kafka-3 -t ProdStorm
+    tmux send-keys -t ProdStorm:8 'ssh kafka3' C-m
+    tmux send-keys -t ProdStorm:8 'sudo su' C-m
+fi
+tmux attach -t ProdStorm

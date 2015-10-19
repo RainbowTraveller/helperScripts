@@ -1,0 +1,40 @@
+tmux has-session -t Coding
+if [ $? != 0  ]
+then
+    tmux new-session -s Coding -n Workspace-1 -d
+    tmux send-keys -t Coding:1 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:1 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Workspace-2 -t Coding
+    tmux send-keys -t Coding:2 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:2 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Workspace-3 -t Coding
+    tmux send-keys -t Coding:3 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:3 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Workspace-4 -t Coding
+    tmux send-keys -t Coding:4 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:4 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Build1 -t Coding
+    tmux send-keys -t Coding:5 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:5 'cd  ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Build2 -t Coding
+    tmux send-keys -t Coding:6 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:6 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n Build3 -t Coding
+    tmux send-keys -t Coding:7 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:7 'cd ~/WFMilind/codebase/' C-m
+
+    tmux new-window -n mongo -t Coding
+    tmux send-keys -t Coding:8 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:8 'cd ~/WFMilind/mongoDB/' C-m
+
+    tmux new-window -n mysql -t Coding
+    tmux send-keys -t Coding:9 'source ~/.bashrc' C-m
+    tmux send-keys -t Coding:9 'mysql -u admin -p' C-m
+fi
+tmux attach -t Coding
