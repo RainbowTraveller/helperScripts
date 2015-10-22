@@ -29,12 +29,13 @@ then
     tmux send-keys -t Coding:7 'source ~/.bashrc' C-m
     tmux send-keys -t Coding:7 'cd ~/WFMilind/codebase/' C-m
 
-    tmux new-window -n mongo -t Coding
+    tmux new-window -n mongod -t Coding
     tmux send-keys -t Coding:8 'source ~/.bashrc' C-m
     tmux send-keys -t Coding:8 'cd ~/WFMilind/mongoDB/' C-m
+    tmux send-keys -t Coding:8 'mongod --dbpath ~/WFMilind/mongoDB/data/db' C-m
 
-    tmux new-window -n mysql -t Coding
+    tmux new-window -n mongo -t Coding
     tmux send-keys -t Coding:9 'source ~/.bashrc' C-m
-    tmux send-keys -t Coding:9 'mysql -u admin -p' C-m
+    tmux send-keys -t Coding:9 'mongo' C-m
 fi
 tmux attach -t Coding
