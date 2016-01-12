@@ -1,0 +1,24 @@
+\documentclass{article}
+\title{Mongo Tips and Tricks}
+\date{2016 Jan 11}
+\author{Milind Vaidya}
+
+\begin{document}
+    \maketitle
+    \pagenumbering{gobble}
+    \newpage
+    \pagenumbering{arabic}
+    \section{Rationale}
+    \paragraph{}
+    These are some tricky but commonly required facts about mongdo db and similar queries.
+    \subsection{Nested array}
+    \paragraph{}
+    Finding the length or number of elements in an array which is nested inside a document
+    \begin{lstlisting}[language=Python]
+    db.listening_history.aggregate(
+        ... { $project : { songs : 1  }  },
+        ... { $unwind : "$songs"  },
+        ... { $group: { _id: "result", count: { $sum: 1  } } }
+        )
+    \end{lstlisting}
+\end{document}

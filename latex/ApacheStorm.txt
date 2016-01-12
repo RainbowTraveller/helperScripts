@@ -1,0 +1,179 @@
+\documentclass{article}
+\title{Apache Storm Notes}
+\date{2015 Sept 10}
+\date{2016 Jan 7}
+\author{Milind Vaidya}
+
+\begin{document}
+    \maketitle
+    \pagenumbering{gobble}
+    \newpage
+    \pagenumbering{arabic}
+    \section{Rationale}
+    \paragraph{}
+    Realtime data processing at a massive(?) scale is what Apache Storm stands
+    for in data processing ecosystem. It can be considered as "Hadoop for
+    realtime". Before Storm, typically this was done manually with the help
+    of workers and queues. The workers will pull out the message out of the
+    queue and send it across or populate into DB. This approach was tedious
+    and required lot of infrastructure building and was error prone. Storm
+    provides a platform which does the heavy lifting where all these things
+    are taken care of with the guaranteed message delivery, so that the
+    focus can solely remain with the business logic. \section{Concepts}
+    \subsection{Topology} \paragraph{} This is actual job at hand. It can be
+    considered a capsule /  umbrella of business logic that is desired. This
+    runs forever unless is killed forcibly.It is a graph of spouts and bolts
+    connected by stream grouping. It is a graph of computation. Each node in
+    a topology contains processing logic and links between nodes indicate
+    how data should be passed around between the nodes.
+
+    \subsection{Stream}
+    \paragraph{}
+    This is a channel of tuples. It is an unbound sequence of tuples that is
+    generated and processed in parallel in a distributed fashion. A stream is
+    defined by the schema that names the fields in the tuple which later take
+    the form of name-value pairs. This is how actual message or data passing
+    happens between the entities of a Topology such as bolts and spouts. In case
+    of multi stream environment each stream can be given an id. But single
+    stream topologies are also common, hence by default the name of the stream
+    is set to "default"
+
+    \subsection{Spout}
+    \paragraph{}
+    This is an interface of the Topology to the external world. This interacts
+    with the external system/entity and acts as source of streams to the
+    Topology. There are 2 types of spouts. The reliable ones keep record of each
+    stream they send in to the topology and can reply if it fails or times out
+    guaranteeing the reliable processing of the data (ack and fail methods). The
+    unreliable ones on the other hand, forget about the tuple immediately once
+    it leaves the spout.
+    \paragraph{}
+    \textbf{Declare a Stream:} declare method of the \textsf{OutputFieldsDeclarer}
+    \paragraph{}
+    \textbf{Emit the stream:} using emit method of \textsf{SpoutOutputCollector} 
+    \paragraph{}
+    \textbf{Produce new tuple:} \textsf{nextTuple} method of spout. DOES NOT BLOCK as all spout 
+    methods are called in a single thread.
+
+    \paragraph{}
+     The different spout classes provide a convenient way to interface with
+     corresponding producers such as Kestrel queue, Kafka etc.
+
+    \subsection{Bolt}
+    \paragraph{}
+    This is heart of the topology as it contains actual processing. It is normal
+    computational unit like a simple class which can perform any task. It
+    subscribes to the stream of other component such as other bolt or spout. As
+    it receives the stream tuple, it transforms it or appropriate action is
+    taken on that tuple. They can also emit more than one stream which can later
+    be consumed by other bolts.A bolt consumes any number of input streams, does
+    some processing, and possibly emits new streams. Complex stream
+    transformations, like computing a stream of trending topics from a stream of
+    tweets, require multiple steps and thus multiple bolts. Bolts can do
+    anything from run functions, filter tuples, do streaming aggregations, do
+    streaming joins, talk to databases, and more. 
+    \paragraph{}
+    \textbf{Declare a stream :} \textsf{declareStream} method of 
+    \textsf{OutputFieldsDeclarer} 
+    \paragraph{}
+    \textbf{Emit the stream :} emit method of \textsf{OutputCollector}
+    The main method in a bolt is "execute" which can be anticipated.It has to "ack"
+    every tuple by calling method having same name of \textsf{OutputCollector}that way storm
+    knows that the tuple has been processed and then eventually original spout tuple
+    can be acked. \textsf{OutputCollector} is not thread safe, so all the emits, acks and fails
+    are supposed to happen in the same thread
+
+    \subsection{Stream Grouping}
+    \paragraph{}
+    As we mentioned earlier that each of the bolts received tuples as it
+    subscribes to a particular stream. The grouping defines how these tuples are
+    given to the tasks in the bolt. In other words, a stream grouping tells a
+    topology how to send tuples between two components.
+
+
+    \subsection{Task}
+    \paragraph{}
+    Each spout or bolt is considered a task but there can be multiple instance
+    of a tasks across a cluster. Each task corresponds to one thread of
+    execution, and stream groupings define how to send tuples from one set of
+    tasks to another set of tasks. e.g. SaveDataBolt may be connecting to DB and
+    persisting the data. There will be multiple threads executing this task
+    across the cluster such that each of them are  trying to connect to DB for
+    pushing the data. (Still not clear if this is possible on the same machine
+    leading to concurrency issues ? In other words can there be multiple threads
+    of the same task in a worker ?)
+
+    \subsection{Worker}
+    \paragraph{}
+    Topologies execute across one or more worker processes. Each worker process
+    is a physical JVM and executes a subset of all the tasks for the topology.
+    For example, if the combined parallelism of the topology is 300 and 50
+    workers are allocated, then each worker will execute 6 tasks (as threads
+    within the worker). Storm tries to spread the tasks evenly across all the
+    workers \section{Storm Properties} Reliability : (Combine with the
+    guaranteed processing)
+
+    \section{Components of a Storm Cluster}
+    \paragraph{}
+    As mentioned briefly above, a topology does not stop, it has to be killed
+    manually. A cluster facilitates the deployment of topology. It has 2 types
+    of nodes, master nodes and worker nodes. 
+    \paragraph{}
+    \textbf{Master node Daemon : Nimbus :}
+    distributes code along the cluster assigning tasks, monitoring failures etc.
+    \paragraph{}
+    \textbf{Worker node Daemon : Supervisor :}Listens for the task assigned, starts -
+    stops workers as per the task assigned to it by Nimbus. 
+    \paragraph{}
+    Each worker executes a subset of a topology; a topology consists of many workers running across
+    number of machines in the cluster. All coordination between Nimbus and the
+    Supervisors is done through a Zookeeper cluster. Additionally, the Nimbus
+    daemon and Supervisor daemons are fail-fast and stateless; all state is kept
+    in Zookeeper or on local disk. This means you can kill -9 Nimbus or the
+    Supervisors and they'll start back up like nothing happened. This design
+    leads to Storm clusters being incredibly stable.
+
+    \section{Defining Bolts in other languages}
+    \paragraph{}
+       Bolts can be defined in any language. Bolts written in another language
+       are executed as subprocesses, and Storm communicates with those
+       subprocesses with JSON messages over stdin/stdout. The communication
+       protocol just requires an ~100 line adapter library, and Storm ships with
+       adapter libraries for Ruby, Python, and Fancy 
+
+    \section{Parallelism in Storm Topology}
+    \paragraph{}
+    The hierarchy of the working elements in the storm is as follows
+    \begin{enumerate}
+        \item \textbf{ Worker Process }
+        \paragraph{}
+        This maps directly to a spout or  bolt in the topology. These will be
+        listed in the Storm UI as per the name assigned to each individual
+        entity.
+        \begin{enumerate}
+            \item \textbf{ Executor }
+            \paragraph{}
+            This depends on the degree of parallelism mensioned at the time of
+            configuration of the bolt. In our context it will be the value
+            assigned to the parameter 'numThreads' in the config file for a
+            particular bolt. This value controls max limit of parallelism. A
+            given Worker process will have maximum 'numThreads' threads exeuting
+            in parallel on various storm machines available in the cluster. This
+            is indicated by 'Executors' column in the storm UI.
+            \begin{enumerate}
+                \item \textbf{ Task }
+                \paragraph{}
+                 A task performs the actual data processing — each spout or bolt
+                 that you implement in your code executes as many tasks across
+                 the cluster. The number of tasks for a component is always the
+                 same throughout the lifetime of a topology, but the number of
+                 executors (threads) for a component can change over time. This
+                 means that the following condition holds true:\emph{threads}\leq \emph{tasks}
+                 By default, the number of tasks is set to be the same
+                 as the number of executors, i.e. Storm will run one task per
+                 thread
+            \end{enumerate}
+        \end{enumerate}
+    \end{enumerate}
+
+\end{document}

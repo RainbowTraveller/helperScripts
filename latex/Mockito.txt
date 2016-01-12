@@ -1,0 +1,13 @@
+\documentclass{article}
+\title{Mockito Test Framework}
+\date{2015 Oct 27}
+\author{Milind Vaidya}
+
+\begin{document}
+    \maketitle
+    \pagenumbering{gobble}
+    \newpage
+    \pagenumbering{arabic}
+    \section{Rationale}
+    \paragraph{}
+\end{document}
