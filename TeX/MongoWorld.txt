@@ -15,7 +15,8 @@
     These are some tricky but commonly required facts about mongdo db and similar queries.
     \subsection{Nested array}
     \paragraph{}
-    Finding the length or number of elements in an array which is nested inside a document
+    Finding the sum of the length or number of elements in an array which is nested inside a document
+    across all documents in a given collection
     \begin{lstlisting}[language=Python]
     db.listening_history.aggregate(
         ... { $project : { songs : 1  }  },
@@ -23,5 +24,14 @@
         ... { $group: { _id: "result", count: { $sum: 1  } } }
         )
     { "_id" : "result", "count" : 83  }
+    \end{lstlisting}
+    \paragraph{}
+    Finding the length or number of elements in an array which is nested inside a document, per document
+    \begin{lstlisting}[language=Python]
+    db.listening_history.aggregate( [ { $project :  {  song_count : { $size : "$songs" } }  }  ] )
+    { "_id" : ObjectId(""), "song_count" : 2  }
+    { "_id" : ObjectId(""), "song_count" : 2  }
+    { "_id" : ObjectId(""), "song_count" : 50  }
+    { "_id" : ObjectId(""), "song_count" : 31  }
     \end{lstlisting}
 \end{document}
