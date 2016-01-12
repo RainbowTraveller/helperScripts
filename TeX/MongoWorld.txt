@@ -3,6 +3,8 @@
 \date{2016 Jan 11}
 \author{Milind Vaidya}
 
+\usepackage{listings}
+
 \begin{document}
     \maketitle
     \pagenumbering{gobble}
@@ -20,5 +22,6 @@
         ... { $unwind : "$songs"  },
         ... { $group: { _id: "result", count: { $sum: 1  } } }
         )
+    { "_id" : "result", "count" : 83  }
     \end{lstlisting}
 \end{document}

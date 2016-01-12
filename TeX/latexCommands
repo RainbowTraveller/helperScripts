@@ -1,0 +1,12 @@
+Convert txt file to dvi:
+    latex file.txt
+
+Convert dvi to pdf
+    dvipdfm file.dvi
+
+OR
+
+pdflatex file.txt
+
+
+
