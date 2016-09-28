@@ -1,0 +1,36 @@
+tmux has-session -t Spark
+if [ $? != 0  ]
+then
+    tmux new-session -s Spark -n Code -d
+    tmux send-keys -t Spark:1 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:1 'cd ~/WFMilind/saavn_spark/' C-m
+
+    tmux new-window -n Kafka-Producer -t Spark
+    tmux send-keys -t Spark:2 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:2 'cd ~/WFMilind/opensource/kafka/bin' C-m
+
+    tmux new-window -n Kafka-Broker -t Spark
+    tmux send-keys -t Spark:3 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:3 'cd ~/WFMilind/opensource/kafka/bin' C-m
+
+    tmux new-window -n Python-Spark-CLI -t Spark
+    tmux send-keys -t Spark:4 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:4 'cd ~/WFMilind/saavn_spark/spark-home/' C-m
+
+    tmux new-window -n Build -t Spark
+    tmux send-keys -t Spark:5 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:5 'cd  ~/WFMilind/saavn_spark/' C-m
+
+    tmux new-window -n Launch -t Spark
+    tmux send-keys -t Spark:6 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:6 'cd ~/WFMilind/saavn_spark/' C-m
+
+    tmux new-window -n StandaloneCluster -t Spark
+    tmux send-keys -t Spark:7 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:7 'cd ~/WFMilind/saavn_spark/spark-home/' C-m
+
+    tmux new-window -n Zookeeper -t Spark
+    tmux send-keys -t Spark:8 'source ~/.bashrc' C-m
+    tmux send-keys -t Spark:2 'cd ~/WFMilind/opensource/Zookeeper/bin' C-m
+fi
+tmux attach -t Spark
