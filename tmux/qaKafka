@@ -1,0 +1,15 @@
+source ~/.bashrc
+tmux has-session -t QA-Kafka
+if [ $? != 0  ]
+then
+    tmux new-session -s QA-Kafka -n QA-Kafka-1 -d
+    tmux send-keys -t QA-Kafka:1 'source ~/.bashrc' C-m
+    tmux send-keys -t QA-Kafka:1 'ssh qakafka1' C-m
+    tmux send-keys -t QA-Kafka:1 'sudo su' C-m
+
+    tmux new-window -n QA-Kafka-2 -t QA-Kafka
+    tmux send-keys -t QA-Kafka:2 'source ~/.bashrc' C-m
+    tmux send-keys -t QA-Kafka:2 'ssh qakafka2' C-m
+    tmux send-keys -t QA-Kafka:2 'sudo su' C-m
+fi
+tmux attach -t QA-Kafka
