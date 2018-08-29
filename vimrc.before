@@ -1,0 +1,9 @@
+" spf13 options {
+
+    " Prevent automatically changing to open file directory
+    "   let g:no_autochdir = 1
+    "   let g:no_restore_cursor = 1
+    "   let g:keep_trailing_whitespace = 1
+    "   let g:no_keyfixes = 1
+    "   let g:clear_search_highlight
+" }
