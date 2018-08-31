@@ -39,6 +39,29 @@
 " }
 
 " General {
+
+	
+" Plugins {
+	" Plugin specific onnfig goes here
+	"
+	" NerdTree {
+		map <C-e> <plug>NERDTreeTabsToggle<CR>
+		map <leader>e :NERDTreeFind<CR>
+		nmap <leader>nt :NERDTreeFind<CR>
+
+		let NERDTreeShowBookmarks=1
+		let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+		let NERDTreeChDirMode=0
+		let NERDTreeQuitOnOpen=1
+		let NERDTreeMouseMode=2
+		let NERDTreeShowHidden=1
+		let NERDTreeKeepTreeInNewTab=1
+		let g:nerdtree_tabs_open_on_gui_startup=0
+	" }
+" }
+	call vundle#end()            " required
+	filetype plugin indent on    " required
+
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
@@ -178,6 +201,8 @@
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     set foldenable                  " Auto fold code
+	set foldmarker={,}
+	set foldmethod=marker
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 " }
@@ -274,21 +299,17 @@
     map zh zH
 
 	if &diff
-		colorscheme dusk
+	    colorscheme dusk
 	endif
-" }
-
-" Plugins {
-	" Plugin specific onnfig goes here
 " }
 
 
 " Unexplored {
-	" Easier formatting
-	"nnoremap <silent> <leader>q gwip
-	":nnoremap <F5> :buffers<CR>:buffer<Space>
-	":nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-	":map tt <Esc>:TlistToggle<CR>
+    " Easier formatting
+   "nnoremap <silent> <leader>q gwip
+   ":nnoremap <F5> :buffers<CR>:buffer<Space>
+   ":nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+   ":map tt <Esc>:TlistToggle<CR>
 	":hi comment ctermfg=darkcyan
 	":set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %{'tabn:'.tabpagenr()}\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
 	"set background=light
@@ -299,5 +320,8 @@
 	"else 
 	"    set clipboard=exclude:.*
 	"endif
+	"
+	"
+	"
 	"
 " }
