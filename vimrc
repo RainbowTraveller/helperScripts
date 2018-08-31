@@ -184,15 +184,13 @@
 
 " Mapping {
 
+	let mapleader = ','
 	:nmap <Tab> gt
 	:nmap <s-tab> gT
     noremap j gj
     noremap k gk
 	:noremap <Leader>w :call TWS()<CR>
 
-" }
-
-" Mapping {
 	set smartindent
 	set autoindent
 	set shiftwidth=4
@@ -208,46 +206,33 @@
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
     " Stupid shift key fixes
-    if !exists('g:spf13_no_keyfixes')
-        if has("user_commands")
-            command! -bang -nargs=* -complete=file E e<bang> <args>
-            command! -bang -nargs=* -complete=file W w<bang> <args>
-            command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-            command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-            command! -bang Wa wa<bang>
-            command! -bang WA wa<bang>
-            command! -bang Q q<bang>
-            command! -bang QA qa<bang>
-            command! -bang Qa qa<bang>
-        endif
-
-        cmap Tabe tabe
-    endif
+	command! -bang -nargs=* -complete=file E e<bang> <args>
+	command! -bang -nargs=* -complete=file W w<bang> <args>
+	command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+	command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+	command! -bang Wa wa<bang>
+	command! -bang WA wa<bang>
+	command! -bang Q q<bang>
+	command! -bang QA qa<bang>
+	command! -bang Qa qa<bang>
+	"Typo correction while opening multiple files
+	" Tabe file1 file2 file3
+    cmap Tabe tabe	
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
     " Code folding options
-    nmap <leader>f0 :set foldlevel=0<CR>
-    nmap <leader>f1 :set foldlevel=1<CR>
-    nmap <leader>f2 :set foldlevel=2<CR>
-    nmap <leader>f3 :set foldlevel=3<CR>
-    nmap <leader>f4 :set foldlevel=4<CR>
-    nmap <leader>f5 :set foldlevel=5<CR>
-    nmap <leader>f6 :set foldlevel=6<CR>
-    nmap <leader>f7 :set foldlevel=7<CR>
-    nmap <leader>f8 :set foldlevel=8<CR>
-    nmap <leader>f9 :set foldlevel=9<CR>
-
-    " Most prefer to toggle search highlighting rather than clear the current
-    " search results. To clear search highlighting rather than toggle it on
-    " and off, add the following to your .vimrc.before.local file:
-    "   let g:spf13_clear_search_highlight = 1
-    if exists('g:spf13_clear_search_highlight')
-        nmap <silent> <leader>/ :nohlsearch<CR>
-    else
-        nmap <silent> <leader>/ :set invhlsearch<CR>
-    endif
+    "nmap <leader>f0 :set foldlevel=0<CR>
+    "nmap <leader>f1 :set foldlevel=1<CR>
+    "nmap <leader>f2 :set foldlevel=2<CR>
+    "nmap <leader>f3 :set foldlevel=3<CR>
+    "nmap <leader>f4 :set foldlevel=4<CR>
+    "nmap <leader>f5 :set foldlevel=5<CR>
+    "nmap <leader>f6 :set foldlevel=6<CR>
+    "nmap <leader>f7 :set foldlevel=7<CR>
+    "nmap <leader>f8 :set foldlevel=8<CR>
+    "nmap <leader>f9 :set foldlevel=9<CR>
 
     " Find merge conflict markers
     map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -282,44 +267,31 @@
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+	:map <F2> dwwp
 
     " Easier horizontal scrolling
     map zl zL
     map zh zH
 
-    " Easier formatting
-    nnoremap <silent> <leader>q gwip
+	if &diff
+		colorscheme dusk
+	endif
 " }
 
+" Plugins {
+	" Plugin specific onnfig goes here
+" }
+
+
 " Unexplored {
-	"let Tlist_Inc_Winwidth=0
-	":ab #i #include
-	":ab #d #define
-	":ab #e #endif
-	":ab #e #endif
-	":map <F4> [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-	":map <F2> dwwp
+	" Easier formatting
+	"nnoremap <silent> <leader>q gwip
 	":nnoremap <F5> :buffers<CR>:buffer<Space>
 	":nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-	":vnoremap < <gv
-	":vnoremap > >gv
-	"":map tt <Esc>:TlistToggle<CR>
+	":map tt <Esc>:TlistToggle<CR>
 	":hi comment ctermfg=darkcyan
 	":set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %{'tabn:'.tabpagenr()}\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
 	"set background=light
-	"
-	"au! BufRead,BufNewFile *.json set filetype=json 
-	"
-	"augroup json_autocmd 
-	"    autocmd! 
-	"    autocmd FileType json set autoindent 
-	"    autocmd FileType json set formatoptions=tcq2l 
-	"    autocmd FileType json set textwidth=78 shiftwidth=2 
-	"    autocmd FileType json set softtabstop=2 tabstop=8 
-	"    autocmd FileType json set expandtab 
-	"    autocmd FileType json set foldmethod=syntax 
-	"augroup END
-	"
 	"
 	"
 	"if $TMUX == ''
@@ -328,11 +300,4 @@
 	"    set clipboard=exclude:.*
 	"endif
 	"
-	"
-	"
-	"if &diff
-	"    colorscheme dusk
-	"endif
-	"
-	"set colorcolumn=
 " }
