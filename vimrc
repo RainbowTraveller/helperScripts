@@ -284,6 +284,12 @@
 " Plugins {
 	" Plugin specific onnfig goes here
 	"
+	" hardtime {
+		nnoremap <leader>h :HardTimeToggle<CR>
+		let g:hardtime_timeout = 2000
+		let g:hardtime_showmsg = 1
+		let g:hardtime_allow_different_key = 1
+	" }
 	" NerdTree {
 		map <C-e> <plug>NERDTreeTabsToggle<CR>
 		map <leader>e :NERDTreeFind<CR>
