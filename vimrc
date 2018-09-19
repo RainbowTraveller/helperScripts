@@ -86,6 +86,17 @@
 " }
 
 " funtions {
+"
+	function! NumberToggle()
+	  if(&relativenumber == 1)
+		set norelativenumber
+	  else
+		set relativenumber
+	  endif
+	endfunc
+
+	nnoremap <leader>nt :call NumberToggle()<cr>"
+
 	fun! TWS()
 	    let l:save = winsaveview()
 	    %s/\s\+$//e
