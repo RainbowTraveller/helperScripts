@@ -4,26 +4,19 @@
 "
 " Environment {
 
+	let mapleader = ','
     " Identify platform {
         silent function! OSX()
             return has('macunix')
         endfunction
         silent function! LINUX()
-            return has('unix') && !has('macunix') && !has('win32unix')
+            return has('unix') && !has('macunix')
         endfunction
     " }
 
     " Basics {
         set nocompatible        " Must be first line
     " }
-
-    " Arrow Key Fix {
-        " https://github.com/spf13/spf13-vim/issues/780
-        if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
-            inoremap <silent> <C-[>OC <RIGHT>
-        endif
-    "za }
-
 " }
 
 " Use before config if available {
@@ -79,28 +72,25 @@
             autocmd BufWinEnter * call ResCur()
         augroup END
     endif
-
-	if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
-	      inoremap <silent> <C-[>OC <RIGHT>
-	endif
 " }
 
-" funtions {
+" functions {
 "
-	function! NumberToggle()
-	  if(&relativenumber == 1)
-		set norelativenumber
-	  else
-		set relativenumber
-	  endif
-	endfunc
+	fun! NumberToggle()
+		if(&relativenumber == 1)
+			set norelativenumber
+			set number
+		else
+			set relativenumber
+		endif
+	endfun
 
-	nnoremap <leader>nt :call NumberToggle()<cr>"
+	nnoremap <leader>tn :call NumberToggle()<cr>"
 
 	fun! TWS()
-	    let l:save = winsaveview()
-	    %s/\s\+$//e
-	    call winrestview(l:save)
+		let l:save = winsaveview()
+		%s/\s\+$//e
+		call winrestview(l:save)
 	endfun
 
     " Strip whitespace {
@@ -116,7 +106,7 @@
         call cursor(l, c)
     endfunction
     " }
-	
+
     " Shell command {
     function! s:RunShellCommand(cmdline)
         botright new
@@ -133,7 +123,6 @@
         call setline(2, substitute(a:cmdline, '.', '=', 'g'))
         execute 'silent $read !' . escape(a:cmdline, '%#')
         setlocal nomodifiable
-        1
     endfunction
 
     command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -143,13 +132,13 @@
 
 " UI {
 	"Settings for the line pointed by cursor
-	color default 						"Not using fancy solarized
-	highlight 	clear SpellBad
-    highlight 	clear SignColumn      " SignColumn should match background
-	highlight  	SpellBad 		cterm=underline
-	highlight 	CursorLine   	term=bold cterm=bold ctermfg=Blue 		ctermbg=LightGray
-	highlight 	LineNr       	term=bold cterm=bold ctermfg=LightBlue 	ctermbg=0
-	highlight 	CursorLineNr 	term=bold cterm=bold ctermfg=DarkRed 	ctermbg=0
+    color       default             "Not using fancy solarized
+    highlight   clear   SpellBad
+    highlight   clear   SignColumn  " SignColumn should match background
+    highlight   SpellBadc       term=underline
+    highlight   CursorLine      term=bold cterm=bold ctermfg=Blue       ctermbg=LightGray
+    highlight   LineNr          term=bold cterm=bold ctermfg=LightBlue  ctermbg=0
+    highlight   CursorLineNr    term=bold cterm=bold ctermfg=DarkRed    ctermbg=0
 
     set showmode                    " Display the current mode
 
@@ -159,20 +148,6 @@
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
     endif
-
-    "if has('statusline')
-    "    set laststatus=2
-
-    "    " Broken down into easily includeable segments
-    "    set statusline=%<%f\                     " Filename
-    "    set statusline+=%w%h%m%r                 " Options
-    "    if !exists('g:override_spf13_bundles')
-    "        set statusline+=%{fugitive#statusline()} " Git Hotness
-    "    endif
-    "    set statusline+=\ [%{&ff}/%Y]            " Filetype
-    "    set statusline+=\ [%{getcwd()}]          " Current dir
-    "    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-    "endif
 
     set backspace=indent,eol,start  " Backspace for dummies
     set linespace=0                 " No extra spaces between rows
@@ -188,7 +163,7 @@
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
-    set foldenable                  " Auto fold code
+    "set foldenable                  " Auto fold code
 	set foldmarker={,}
 	set foldmethod=marker
     set list
@@ -197,7 +172,6 @@
 
 " Mapping {
 
-	let mapleader = ','
 	:nmap <Tab> gt
 	:nmap <s-tab> gT
     noremap j gj
@@ -209,7 +183,7 @@
 	set shiftwidth=4
 	set tabstop=4
 	set softtabstop=4               " Let backspace delete indent
-	set noexpandtab
+	set expandtab					" expand tab to spaces
 	set wildignore=*.o,*.bak,*.class,*.pyc
 	set laststatus=2
 	set nolist
@@ -228,27 +202,13 @@
 	command! -bang Q q<bang>
 	command! -bang QA qa<bang>
 	command! -bang Qa qa<bang>
+
 	"Typo correction while opening multiple files
 	" Tabe file1 file2 file3
-    cmap Tabe tabe	
+    cmap Tabe tabe
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
-
-    " Code folding options
-    "nmap <leader>f0 :set foldlevel=0<CR>
-    "nmap <leader>f1 :set foldlevel=1<CR>
-    "nmap <leader>f2 :set foldlevel=2<CR>
-    "nmap <leader>f3 :set foldlevel=3<CR>
-    "nmap <leader>f4 :set foldlevel=4<CR>
-    "nmap <leader>f5 :set foldlevel=5<CR>
-    "nmap <leader>f6 :set foldlevel=6<CR>
-    "nmap <leader>f7 :set foldlevel=7<CR>
-    "nmap <leader>f8 :set foldlevel=8<CR>
-    "nmap <leader>f9 :set foldlevel=9<CR>
-
-    " Find merge conflict markers
-    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
     " Shortcuts
     " Change Working Directory to that of the current file
@@ -267,8 +227,8 @@
     cmap w!! w !sudo tee % >/dev/null
 
     " Some helpers to edit mode
-    " http://vimcasts.org/e/14
-    cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+	" http://vimcasts.org/e/14
+	cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
     map <leader>ew :e %%
     map <leader>es :sp %%
     map <leader>ev :vsp %%
@@ -280,14 +240,15 @@
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-	:map <F2> dwwp
 
     " Easier horizontal scrolling
     map zl zL
     map zh zH
 
+	"Make sure LimeLight is turned off while diff
 	if &diff
-	    colorscheme dusk
+		colorscheme molokai
+		"colorscheme evening
 	endif
 " }
 
@@ -301,6 +262,7 @@
 		let g:hardtime_showmsg = 1
 		let g:hardtime_allow_different_key = 1
 	" }
+
 	" NerdTree {
 		map <C-e> <plug>NERDTreeTabsToggle<CR>
 		map <leader>e :NERDTreeFind<CR>
@@ -315,6 +277,7 @@
 		let NERDTreeKeepTreeInNewTab=1
 		let g:nerdtree_tabs_open_on_gui_startup=0
 	" }
+
 	" limelight {
 		" Color name (:help cterm-colors) or ANSI code
 		let g:limelight_conceal_ctermfg = 'gray'
@@ -328,7 +291,7 @@
 		let g:limelight_default_coefficient = 0.7
 
 		" Number of preceding/following paragraphs to include (default: 0)
-		let g:limelight_paragraph_span = 1
+		let g:limelight_paragraph_span = 5
 
 		" Beginning/end of paragraph
 		"   When there's no empty line between the paragraphs
@@ -340,10 +303,12 @@
 		"   Set it to -1 not to overrule hlsearch
 		let g:limelight_priority = -1
 
-		"nmap <leader>l <Plug>(Limelight)
-		"xmap <leader>l <Plug>(Limelight)
+		autocmd VimEnter * Limelight
+		nmap <leader>l :Limelight<CR>
+		nmap <leader>nl :Limelight!<CR>
 	"}
 " }
+
 " Unexplored {
     " Easier formatting
    "nnoremap <silent> <leader>q gwip
@@ -357,7 +322,7 @@
 	"
 	"if $TMUX == ''
 	"    set clipboard+=unnamed
-	"else 
+	"else
 	"    set clipboard=exclude:.*
 	"endif
 	"
