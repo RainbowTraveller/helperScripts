@@ -48,7 +48,7 @@
 		"stash":                      "branch_dirty",
 		"stash:divider":              "branch:divider",
 		"cwd":                        "information:additional",
-		"cwd:current_folder":		  { "fg": "solarized:base3", "bg": "solarized:green", "attrs": ["bold"] },
+		"cwd:current_folder":		  { "fg": "solarized:base3", "bg": "solarized:cyan", "attrs": ["bold"] },
 		"cwd:divider":                { "fg": "gray7", "bg": "gray4", "attrs": [] },
 		"virtualenv":                 { "fg": "white", "bg": "darkcyan", "attrs": [] },
 		"attached_clients":           { "fg": "gray8", "bg": "gray0", "attrs": [] }
