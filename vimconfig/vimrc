@@ -4,7 +4,7 @@
 "
 " Environment {
 
-	let mapleader = ','
+    let mapleader = ','
     " Identify platform {
         silent function! OSX()
             return has('macunix')
@@ -32,6 +32,9 @@
 " }
 
 " General {
+    nnoremap <C-e> 10<C-e>
+    nnoremap <C-y> 10<C-y>
+    iabbr sout System.out.println("");
     syntax on                   " Syntax highlighting
     set mouse=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
@@ -76,22 +79,22 @@
 
 " functions {
 "
-	fun! NumberToggle()
-		if(&relativenumber == 1)
-			set norelativenumber
-			set number
-		else
-			set relativenumber
-		endif
-	endfun
+    fun! NumberToggle()
+        if(&relativenumber == 1)
+            set norelativenumber
+            set number
+        else
+            set relativenumber
+        endif
+    endfun
 
-	nnoremap <leader>tn :call NumberToggle()<cr>"
+    nnoremap <leader>tn :call NumberToggle()<cr>"
 
-	fun! TWS()
-		let l:save = winsaveview()
-		%s/\s\+$//e
-		call winrestview(l:save)
-	endfun
+    fun! TWS()
+        let l:save = winsaveview()
+        %s/\s\+$//e
+        call winrestview(l:save)
+    endfun
 
     " Strip whitespace {
     function! StripTrailingWhitespace()
@@ -131,11 +134,11 @@
 " }
 
 " UI {
-	"Settings for the line pointed by cursor
-    color       default             "Not using fancy solarized
+    "Settings for the line pointed by cursor
+    color       default         "Not using fancy solarized
     highlight   clear   SpellBad
     highlight   clear   SignColumn  " SignColumn should match background
-    highlight   SpellBadc       term=underline
+    highlight   SpellBad        cterm=underline
     highlight   CursorLine      term=bold cterm=bold ctermfg=Blue       ctermbg=LightGray
     highlight   LineNr          term=bold cterm=bold ctermfg=LightBlue  ctermbg=0
     highlight   CursorLineNr    term=bold cterm=bold ctermfg=DarkRed    ctermbg=0
@@ -164,47 +167,48 @@
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     "set foldenable                  " Auto fold code
-	set foldmarker={,}
-	set foldmethod=marker
+    set foldmarker={,}
+    set foldmethod=marker
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 " }
 
 " Mapping {
 
-	:nmap <Tab> gt
-	:nmap <s-tab> gT
+    :nmap <Tab> gt
+    :nmap <s-tab> gT
     noremap j gj
     noremap k gk
-	:noremap <Leader>w :call TWS()<CR>
+    :noremap <Leader>w :call TWS()<CR>
+    :imap sout<Tab> System.out.println("");<Esc>F"i 
 
-	set smartindent
-	set autoindent
-	set shiftwidth=4
-	set tabstop=4
-	set softtabstop=4               " Let backspace delete indent
-	set expandtab					" expand tab to spaces
-	set wildignore=*.o,*.bak,*.class,*.pyc
-	set laststatus=2
-	set nolist
-	set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
-	set splitright                  " Puts new vsplit windows to the right of the current
-	set splitbelow                  " Puts new split windows to the bottom of the current
+    set smartindent
+    set autoindent
+    set shiftwidth=4
+    set tabstop=4
+    set softtabstop=4               " Let backspace delete indent
+    set expandtab                   " expand tab to spaces
+    set wildignore=*.o,*.bak,*.class,*.pyc
+    set laststatus=2
+    set nolist
+    set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+    set splitright                  " Puts new vsplit windows to the right of the current
+    set splitbelow                  " Puts new split windows to the bottom of the current
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 
     " Stupid shift key fixes
-	command! -bang -nargs=* -complete=file E e<bang> <args>
-	command! -bang -nargs=* -complete=file W w<bang> <args>
-	command! -bang -nargs=* -complete=file Wq wq<bang> <args>
-	command! -bang -nargs=* -complete=file WQ wq<bang> <args>
-	command! -bang Wa wa<bang>
-	command! -bang WA wa<bang>
-	command! -bang Q q<bang>
-	command! -bang QA qa<bang>
-	command! -bang Qa qa<bang>
+    command! -bang -nargs=* -complete=file E e<bang> <args>
+    command! -bang -nargs=* -complete=file W w<bang> <args>
+    command! -bang -nargs=* -complete=file Wq wq<bang> <args>
+    command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+    command! -bang Wa wa<bang>
+    command! -bang WA wa<bang>
+    command! -bang Q q<bang>
+    command! -bang QA qa<bang>
+    command! -bang Qa qa<bang>
 
-	"Typo correction while opening multiple files
-	" Tabe file1 file2 file3
+    "Typo correction while opening multiple files
+    " Tabe file1 file2 file3
     cmap Tabe tabe
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
@@ -227,8 +231,8 @@
     cmap w!! w !sudo tee % >/dev/null
 
     " Some helpers to edit mode
-	" http://vimcasts.org/e/14
-	cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+    " http://vimcasts.org/e/14
+    cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
     map <leader>ew :e %%
     map <leader>es :sp %%
     map <leader>ev :vsp %%
@@ -245,68 +249,68 @@
     map zl zL
     map zh zH
 
-	"Make sure LimeLight is turned off while diff
-	if &diff
-		colorscheme molokai
-		"colorscheme evening
-	endif
+    "Make sure LimeLight is turned off while diff
+    if &diff
+        colorscheme molokai
+        "colorscheme evening
+    endif
 " }
 
 
 " Plugins {
-	" Plugin specific onnfig goes here
-	"
-	" hardtime {
-		nnoremap <leader>h :HardTimeToggle<CR>
-		let g:hardtime_timeout = 2000
-		let g:hardtime_showmsg = 1
-		let g:hardtime_allow_different_key = 1
-	" }
+    " Plugin specific onnfig goes here
+    "
+    " hardtime {
+        nnoremap <leader>h :HardTimeToggle<CR>
+        let g:hardtime_timeout = 2000
+        let g:hardtime_showmsg = 1
+        let g:hardtime_allow_different_key = 1
+    " }
 
-	" NerdTree {
-		map <C-e> <plug>NERDTreeTabsToggle<CR>
-		map <leader>e :NERDTreeFind<CR>
-		nmap <leader>nt :NERDTreeFind<CR>
+    " NerdTree {
+        map <C-t> <plug>NERDTreeTabsToggle<CR>
+        map <leader>e :NERDTreeFind<CR>
+        nmap <leader>nt :NERDTreeFind<CR>
 
-		let NERDTreeShowBookmarks=1
-		let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-		let NERDTreeChDirMode=0
-		let NERDTreeQuitOnOpen=1
-		let NERDTreeMouseMode=2
-		let NERDTreeShowHidden=1
-		let NERDTreeKeepTreeInNewTab=1
-		let g:nerdtree_tabs_open_on_gui_startup=0
-	" }
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=1
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=1
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
+    " }
 
-	" limelight {
-		" Color name (:help cterm-colors) or ANSI code
-		let g:limelight_conceal_ctermfg = 'gray'
-		let g:limelight_conceal_ctermfg = 240
+    " limelight {
+        " Color name (:help cterm-colors) or ANSI code
+        let g:limelight_conceal_ctermfg = 'gray'
+        let g:limelight_conceal_ctermfg = 240
 
-		" Color name (:help gui-colors) or RGB color
-		let g:limelight_conceal_guifg = 'DarkGray'
-		let g:limelight_conceal_guifg = '#777777'
+        " Color name (:help gui-colors) or RGB color
+        let g:limelight_conceal_guifg = 'DarkGray'
+        let g:limelight_conceal_guifg = '#777777'
 
-		" Default: 0.5
-		let g:limelight_default_coefficient = 0.7
+        " Default: 0.5
+        let g:limelight_default_coefficient = 0.7
 
-		" Number of preceding/following paragraphs to include (default: 0)
-		let g:limelight_paragraph_span = 5
+        " Number of preceding/following paragraphs to include (default: 0)
+        let g:limelight_paragraph_span = 5
 
-		" Beginning/end of paragraph
-		"   When there's no empty line between the paragraphs
-		"   and each paragraph starts with indentation
-		let g:limelight_bop = '^\s'
-		let g:limelight_eop = '\ze\n^\s'
+        " Beginning/end of paragraph
+        "   When there's no empty line between the paragraphs
+        "   and each paragraph starts with indentation
+        let g:limelight_bop = '^\s'
+        let g:limelight_eop = '\ze\n^\s'
 
-		" Highlighting priority (default: 10)
-		"   Set it to -1 not to overrule hlsearch
-		let g:limelight_priority = -1
+        " Highlighting priority (default: 10)
+        "   Set it to -1 not to overrule hlsearch
+        let g:limelight_priority = -1
 
-		autocmd VimEnter * Limelight
-		nmap <leader>l :Limelight<CR>
-		nmap <leader>nl :Limelight!<CR>
-	"}
+        autocmd VimEnter * Limelight
+        nmap <leader>l :Limelight<CR>
+        nmap <leader>nl :Limelight!<CR>
+    "}
 " }
 
 " Unexplored {
@@ -315,18 +319,18 @@
    ":nnoremap <F5> :buffers<CR>:buffer<Space>
    ":nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
    ":map tt <Esc>:TlistToggle<CR>
-	":hi comment ctermfg=darkcyan
-	":set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %{'tabn:'.tabpagenr()}\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
-	"set background=light
-	"
-	"
-	"if $TMUX == ''
-	"    set clipboard+=unnamed
-	"else
-	"    set clipboard=exclude:.*
-	"endif
-	"
-	"
-	"
-	"
+    ":hi comment ctermfg=darkcyan
+    ":set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %{'tabn:'.tabpagenr()}\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
+    "set background=light
+    "
+    "
+    "if $TMUX == ''
+    "    set clipboard+=unnamed
+    "else
+    "    set clipboard=exclude:.*
+    "endif
+    "
+    "
+    "
+    "
 " }
