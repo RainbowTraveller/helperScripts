@@ -109,15 +109,15 @@
         call cursor(l, c)
     endfunction
 
-	"FZF
-	function! FzfOmniFiles()
-		let is_git = system('git status')
-		if v:shell_error
-			:Files
-		else
-			:GitFiles  --exclude-standard --other
-		endif
-	endfunction
+    "FZF
+    function! FzfOmniFiles()
+        let is_git = system('git status')
+        if v:shell_error
+            :Files
+        else
+            :GitFiles  --exclude-standard --other
+        endif
+    endfunction
 " }
 
 " Shell command {
@@ -325,21 +325,21 @@
     "}
 
     "fzf {
-		" Mapping selecting mappings
-		nmap <leader><tab> <plug>(fzf-maps-n)
-		xmap <leader><tab> <plug>(fzf-maps-x)
-		omap <leader><tab> <plug>(fzf-maps-o)
+        " Mapping selecting mappings
+        nmap <leader><tab> <plug>(fzf-maps-n)
+        xmap <leader><tab> <plug>(fzf-maps-x)
+        omap <leader><tab> <plug>(fzf-maps-o)
 
-		" Insert mode completion
-		imap <c-x><c-k> <plug>(fzf-complete-word)
-		imap <c-x><c-f> <plug>(fzf-complete-path)
-		imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-		imap <c-x><c-l> <plug>(fzf-complete-line)
+        " Insert mode completion
+        imap <c-x><c-k> <plug>(fzf-complete-word)
+        imap <c-x><c-f> <plug>(fzf-complete-path)
+        imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+        imap <c-x><c-l> <plug>(fzf-complete-line)
 
-		nnoremap <leader>b :Buffers<CR>
-		nnoremap <leader>g :Ag<CR>
-		nnoremap <leader><leader> :Commands<CR>
-		nnoremap <Leader>f :call FzfOmniFiles()<CR>
+        nnoremap <leader>b :Buffers<CR>
+        nnoremap <leader>g :Ag<CR>
+        nnoremap <leader><leader>c :Commands<CR>
+        nnoremap <Leader>f :call FzfOmniFiles()<CR>
      "}
 " }
 
