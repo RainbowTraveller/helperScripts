@@ -312,7 +312,7 @@
         nmap <leader>nl :Limelight!<CR>
     "}
 
-    "easymotion {
+    "easy-motion {
     "}
 " }
 
