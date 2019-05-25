@@ -6,7 +6,7 @@
 
     " Basics {
         set nocompatible        " Must be first line
-		set background=dark     " Assume a dark background
+        set background=dark     " Assume a dark background
     " }
 
     " Setup Plugin Support {
@@ -32,23 +32,10 @@
 
     " Deps {
         Plugin 'gmarik/vundle'
-        "Plugin 'MarcWeber/vim-addon-mw-utils'
-        "Plugin 'tomtom/tlib_vim'
-		
-		"------------------------Ack not working
-        if executable('ag')
-            Plugin 'mileszs/ack.vim'
-            let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-        elseif executable('ack-grep')
-            let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-            Plugin 'mileszs/ack.vim'
-        elseif executable('ack')
-            Plugin 'mileszs/ack.vim'
-        endif
-		" fzf {
-			set rtp+=~/.fzf
-			Plugin 'junegunn/fzf.vim'
-		" }
+      " fzf {
+          set rtp+=~/.fzf
+          Plugin 'junegunn/fzf.vim'
+      " }
     " }
 
     " In your .vimrc.before.local file
@@ -60,7 +47,7 @@
     "
     " General {
         if count(g:plugin_groups, 'general')
-			Plugin 'takac/vim-hardtime'
+            Plugin 'takac/vim-hardtime'
             Plugin 'scrooloose/nerdtree'
             Plugin 'altercation/vim-colors-solarized'
             Plugin 'spf13/vim-colors'
@@ -68,18 +55,14 @@
             Plugin 'tpope/vim-repeat'
             Plugin 'rhysd/conflict-marker.vim'
             Plugin 'jiangmiao/auto-pairs'
-			Plugin 'junegunn/limelight.vim'
-			"Use fxf Instead
-            "Plugin 'ctrlpvim/ctrlp.vim'
-            "Plugin 'tacahiroy/ctrlp-funky'
+            Plugin 'junegunn/limelight.vim'
             Plugin 'terryma/vim-multiple-cursors'
             Plugin 'vim-scripts/sessionman.vim'
             Plugin 'matchit.zip'
             if (has("python") || has("python3"))
-                "Plugin 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
-				set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
-				set laststatus=2
-				set t_Co=256
+                set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
+                set laststatus=2
+                set t_Co=256
                 Plugin 'Lokaltog/powerline'
             else
                 Plugin 'vim-airline/vim-airline'
@@ -116,7 +99,7 @@
     " General Programming {
         if count(g:plugin_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            Plugin 'scrooloose/syntastic'
+            Plugin 'Valloric/YouCompleteMe'
             Plugin 'tpope/vim-fugitive'
             Plugin 'mattn/webapi-vim'
             Plugin 'mattn/gist-vim'
@@ -132,8 +115,8 @@
 
     " Snippets & AutoComplete {
         if count(g:plugin_groups, 'snipmate')
-			Plugin 'MarcWeber/vim-addon-mw-utils'
-			Plugin 'tomtom/tlib_vim'
+            Plugin 'MarcWeber/vim-addon-mw-utils'
+            Plugin 'tomtom/tlib_vim'
             Plugin 'garbas/vim-snipmate'
             Plugin 'honza/vim-snippets'
             " Source support_function.vim to support vim-snippets.
@@ -193,13 +176,26 @@
 
     " Misc {
         if count(g:plugin_groups, 'misc')
-            Plugin 'rust-lang/rust.vim'
-            Plugin 'tpope/vim-markdown'
-            Plugin 'spf13/vim-preview'
-            Plugin 'tpope/vim-cucumber'
-            Plugin 'cespare/vim-toml'
-            Plugin 'quentindecock/vim-cucumber-align-pipes'
-            Plugin 'saltstack/salt-vim'
+          Plugin 'rust-lang/rust.vim'
+          Plugin 'tpope/vim-markdown'
+          Plugin 'spf13/vim-preview'
+          Plugin 'tpope/vim-cucumber'
+          Plugin 'cespare/vim-toml'
+          Plugin 'quentindecock/vim-cucumber-align-pipes'
+          Plugin 'saltstack/salt-vim'
+          "Plugin 'MarcWeber/vim-addon-mw-utils'
+          "Plugin 'tomtom/tlib_vim'
+
+          "------------------------Ack not working
+          """if executable('ag')
+          """    Plugin 'mileszs/ack.vim'
+          """    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+          """elseif executable('ack-grep')
+          """    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+          """    Plugin 'mileszs/ack.vim'
+          """elseif executable('ack')
+          """    Plugin 'mileszs/ack.vim'
+          """endif
         endif
     " }
 
