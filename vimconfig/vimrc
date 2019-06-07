@@ -36,7 +36,7 @@
     nnoremap <C-y> 10<C-y>
     iabbr sout System.out.println("");
     syntax on                   " Syntax highlighting
-    set mouse=a                 " Automatically enable mouse usage
+    set mouse-=a                 " Automatically enable mouse usage
     set mousehide               " Hide the mouse cursor while typing
 
     " Most prefer to automatically switch to the current file directory when
@@ -181,8 +181,9 @@
     set scrolljump=5                " Lines to scroll when cursor leaves screen
     set scrolloff=3                 " Minimum lines to keep above and below cursor
     "set foldenable                  " Auto fold code
-    set foldmarker={,}
-    set foldmethod=marker
+    set foldmethod=syntax
+    set foldlevel=1
+    set foldclose=all
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 " }
@@ -347,27 +348,27 @@
         nnoremap <Leader>f :call FzfOmniFiles()<CR>
      "}
 
-	"Youcompleteme {
-	
-		let g:ycm_register_as_syntastic_checker = 1 "default 1
-		let g:Show_diagnostics_ui = 1 "default 1
+    "Youcompleteme {
 
-		"will put icons in Vim's gutter on lines that have a diagnostic set.
-		"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
-		"highlighting
-		let g:ycm_enable_diagnostic_signs = 1
-		let g:ycm_enable_diagnostic_highlighting = 1
-		let g:ycm_always_populate_location_list = 1 "default 0
-		let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+        let g:ycm_register_as_syntastic_checker = 1 "default 1
+        let g:Show_diagnostics_ui = 1 "default 1
 
-		let g:ycm_complete_in_strings = 1 "default 1
-		let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-		let g:ycm_path_to_python_interpreter = '' "default ''
+        "will put icons in Vim's gutter on lines that have a diagnostic set.
+        "Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+        "highlighting
+        let g:ycm_enable_diagnostic_signs = 1
+        let g:ycm_enable_diagnostic_highlighting = 1
+        let g:ycm_always_populate_location_list = 1 "default 0
+        let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
 
-		let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
-		let g:ycm_server_log_level = 'info' "default info
+        let g:ycm_complete_in_strings = 1 "default 1
+        let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+        let g:ycm_path_to_python_interpreter = '' "default ''
 
-	"}
+        let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+        let g:ycm_server_log_level = 'info' "default info
+
+    "}
 " }
 
 " Unexplored {
