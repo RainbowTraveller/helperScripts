@@ -40,7 +40,7 @@
 
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
-    let g:plugin_groups=['general', 'writing', 'neocomplete', 'programming', 'python', 'misc', 'snipmate', 'youcompleteme', 'neocomplcache', 'scala', 'go', 'ruby']
+    let g:plugin_groups=['general', 'writing', 'neocomplete', 'programming', 'python', 'misc','youcompleteme','scala', 'go', 'ruby']
 
     " To override all the included Plugins, add the following to your
     " .vimrc.bundles.local file:
@@ -99,7 +99,6 @@
     " General Programming {
         if count(g:plugin_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            Plugin 'Valloric/YouCompleteMe'
             Plugin 'tpope/vim-fugitive'
             Plugin 'mattn/webapi-vim'
             Plugin 'mattn/gist-vim'
@@ -114,28 +113,9 @@
     " }
 
     " Snippets & AutoComplete {
-        if count(g:plugin_groups, 'snipmate')
-            Plugin 'MarcWeber/vim-addon-mw-utils'
-            Plugin 'tomtom/tlib_vim'
-            Plugin 'garbas/vim-snipmate'
-            Plugin 'honza/vim-snippets'
-            " Source support_function.vim to support vim-snippets.
-            if filereadable(expand("~/.vim/Plugin/vim-snippets/snippets/support_functions.vim"))
-                source ~/.vim/Plugin/vim-snippets/snippets/support_functions.vim
-            endif
-        elseif count(g:plugin_groups, 'youcompleteme')
+        if count(g:plugin_groups, 'youcompleteme')
             Plugin 'Valloric/YouCompleteMe'
             Plugin 'SirVer/ultisnips'
-            Plugin 'honza/vim-snippets'
-        elseif count(g:plugin_groups, 'neocomplcache')
-            Plugin 'Shougo/neocomplcache'
-            Plugin 'Shougo/neosnippet'
-            Plugin 'Shougo/neosnippet-snippets'
-            Plugin 'honza/vim-snippets'
-        elseif count(g:plugin_groups, 'neocomplete')
-            Plugin 'Shougo/neocomplete.vim.git'
-            Plugin 'Shougo/neosnippet'
-            Plugin 'Shougo/neosnippet-snippets'
             Plugin 'honza/vim-snippets'
         endif
     " }
@@ -185,17 +165,6 @@
           Plugin 'saltstack/salt-vim'
           "Plugin 'MarcWeber/vim-addon-mw-utils'
           "Plugin 'tomtom/tlib_vim'
-
-          "------------------------Ack not working
-          """if executable('ag')
-          """    Plugin 'mileszs/ack.vim'
-          """    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-          """elseif executable('ack-grep')
-          """    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-          """    Plugin 'mileszs/ack.vim'
-          """elseif executable('ack')
-          """    Plugin 'mileszs/ack.vim'
-          """endif
         endif
     " }
 
