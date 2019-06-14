@@ -123,6 +123,21 @@
             :GitFiles  --exclude-standard --other
         endif
     endfunction
+
+    function! s:change_branch()
+        let res  = system('git checkout ' . a:e)
+        :e!
+        :python3 powerline.reload()
+        echom "Changed Branch to : " . a:e
+    endfunction
+
+    command! Gbranch call fzf#run (
+        \ {
+        \ 'source'  : 'git branch',
+        \ 'sink'    : function('<sid>change_branch'),
+        \ 'options' : '-m'
+        \ 'down'    : '20%'
+        \ })
 " }
 
 " Shell command {
@@ -337,13 +352,26 @@
         omap <leader><tab> <plug>(fzf-maps-o)
 
         " Insert mode completion
+        " Used to insert corresponding word/path/file name/ line in the current file at
+        " current location
+        " from file /usr/share/dict/words
         imap <c-x><c-k> <plug>(fzf-complete-word)
+
+        " Path completion using find (file + dir)
         imap <c-x><c-f> <plug>(fzf-complete-path)
+
+        " File completion using ag
         imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+
+        " Line completion (all open buffers)
         imap <c-x><c-l> <plug>(fzf-complete-line)
 
+        " Display all open files to choose from
         nnoremap <leader>b :Buffers<CR>
-        nnoremap <leader>g :Ag<CR>
+        " Code search across all files
+        nnoremap <leader>a :Ag<CR>
+
+        " Possible commands that can be run on vim command prompt
         nnoremap <leader><leader>c :Commands<CR>
         nnoremap <Leader>f :call FzfOmniFiles()<CR>
      "}
