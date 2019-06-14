@@ -135,7 +135,7 @@
         \ {
         \ 'source'  : 'git branch',
         \ 'sink'    : function('<sid>change_branch'),
-        \ 'options' : '-m'
+        \ 'options' : '-m',
         \ 'down'    : '20%'
         \ })
 " }
