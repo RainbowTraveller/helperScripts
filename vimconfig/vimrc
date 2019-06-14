@@ -378,6 +378,9 @@
 
     "Youcompleteme {
 
+        let g:syntastic_java_checkers = []
+        let g:EclimFileTypeValidate = 0
+        let g:ycm_server_ptyhon_interpreter = ''
         let g:ycm_register_as_syntastic_checker = 1 "default 1
         let g:Show_diagnostics_ui = 1 "default 1
 
