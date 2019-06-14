@@ -351,6 +351,7 @@
 
         " Possible commands that can be run on vim command prompt
         nnoremap <leader><leader>c :Commands<CR>
+        nnoremap <leader>c :Commits<CR>
         nnoremap <Leader>f :call FzfOmniFiles()<CR>
      "}
 
