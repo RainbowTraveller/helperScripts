@@ -75,6 +75,8 @@
             autocmd BufWinEnter * call ResCur()
         augroup END
     endif
+
+    autocmd FileType java set tags=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home/.tags
 " }
 
 " functions {
@@ -118,9 +120,9 @@
     function! FzfOmniFiles()
         let is_git = system('git status')
         if v:shell_error
-            :Files
+            :FZFFiles
         else
-            :GitFiles  --exclude-standard --other
+            :FZFGitFiles  --exclude-standard --other
         endif
     endfunction
 
@@ -324,6 +326,7 @@
     "}
 
     "fzf {
+        let g:fzf_command_prefix  = 'FZF'
         " Mapping selecting mappings
         nmap <leader><tab> <plug>(fzf-maps-n)
         xmap <leader><tab> <plug>(fzf-maps-x)
@@ -334,25 +337,27 @@
         " current location
         " from file /usr/share/dict/words
         imap <c-x><c-k> <plug>(fzf-complete-word)
-
         " Path completion using find (file + dir)
         imap <c-x><c-f> <plug>(fzf-complete-path)
-
         " File completion using ag
         imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-
         " Line completion (all open buffers)
         imap <c-x><c-l> <plug>(fzf-complete-line)
 
         " Display all open files to choose from
-        nnoremap <leader>b :Buffers<CR>
+        nnoremap <leader>b :FZFBuffers<CR>
         " Code search across all files
-        nnoremap <leader>a :Ag<CR>
-
+        nnoremap <leader>a :FZFAg<CR>
         " Possible commands that can be run on vim command prompt
-        nnoremap <leader><leader>c :Commands<CR>
-        nnoremap <leader>c :Commits<CR>
+        nnoremap <leader>; :FZFCommands<CR>
+        nnoremap <leader>c :FZFCommits<CR>
+        " Jump to a line in the same file
+        nnoremap <leader>bl :FZFBLines<CR>
+        " Search Files
         nnoremap <Leader>f :call FzfOmniFiles()<CR>
+        " tags
+        nnoremap <Leader>t :FZFTags<CR>
+        nnoremap <Leader>bt :FZFBTags<CR>
      "}
 
     "Youcompleteme {
@@ -378,6 +383,7 @@
         let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
         let g:ycm_server_log_level = 'info' "default info
 
+        nnoremap <c-1> :YcmForceCompileAndDiagnostics<CR>
     "}
 " }
 
