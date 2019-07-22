@@ -122,6 +122,13 @@
 
 " functions {
 "
+	fun! NewFile()
+		silent! 0r ~/.vim/templates/java_template
+		s/FILENAME/\=expand("%:t:r")/g
+	endfun
+
+	autocmd BufNewFile *.java call NewFile()
+
     fun! NumberToggle()
         if(&relativenumber == 1)
             set norelativenumber
