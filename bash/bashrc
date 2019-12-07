@@ -1,0 +1,121 @@
+#=== start of automatically maintained lines (do not delete)===
+# .bashrc, sourced by interactive non-login shells (also called by .bash_profile)
+#export PATH=/sbin:/usr/sbin:/bin:/usr/bin:/home/y/bin:/usr/local/bin:/usr/X11R6/bin
+# per-user custom comands go here...
+
+
+
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/local/sbin:/usr/share:/usr/texbin
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
+export HADOOP_PREFIX=/Users/milind/WFMilind/opensource/hadoop/hadoop-2.7.0/
+export M2_HOME=/usr/local/apache-maven
+export PATH=$PATH:$M2_HOME/bin
+export JUNIT_HOME="$HOME/junit"
+export PATH="$PATH:$JUNIT_HOME"
+export CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit-4.12.jar:$JUNIT_HOME/hamcrest-core-1.3.jar"
+export ECLIPSE_HOME=/Users/milind/Applications/eclipse/Eclipse.app/Contents/Eclipse
+
+#Configuring the command prompt
+PS1='[\e[0;31m\u\e[m@\e[1;32m\h\e[m:\e[1;34m\w\e[m\$]\n'
+
+
+export CLICOLOR=1
+#export LSCOLORS=GxFxCxDxBxegedabagaced
+
+#ls command alias
+export LSCOLORS=ExFxBxDxCxGxHxCGagacad
+alias ll="ls -lhG"
+alias la="ls -ahlG"
+#alias ll="ls -lh --color"
+#alias la="ls -ahl --color"
+alias grep="grep --color"
+#alias diff="git diff"
+alias tmux="TERM=xterm-256color tmux"
+alias coding="bash ~/PMilind/repo/helperScripts/tmux/Coding"
+alias vim="/usr/local/bin/vim"
+
+alias coding="ssh -t dev 'tmux a -t Coding'"
+alias pk="ssh -t dev 'tmux a -t ProdKafka'"
+alias pst="ssh -t dev 'tmux a -t ProdStorm'"
+alias pom="ssh -t dev 'tmux a -t OfflineMongo'"
+alias pmm="ssh -t dev 'tmux a -t ProdMainMongo'"
+alias qe="ssh -t dev 'tmux a -t QA-ENV'"
+alias eclim="$ECLIPSE_HOME/eclimd"
+alias dev="cd ~/PMilind/tech/codebase/"
+
+# Starting and Stopping Tomcat
+alias stc="/Library/Tomcat/bin/startup.sh"
+alias ktc="/Library/Tomcat/bin/shutdown.sh"
+
+function tabname {
+    printf "\e]1;$1\a"
+}
+function winname {
+    printf "\e]2;$1\a"
+}
+#REFRENCE for LSCOLORS
+# a     black
+# b     red
+# c     green
+# d     brown
+# e     blue
+# f     magenta
+# g     cyan
+# h     light grey
+# A     bold black, usually shows up as dark grey
+# B     bold red
+# C     bold green
+# D     bold brown, usually shows up as yellow
+# E     bold blue
+# F     bold magenta
+# G     bold cyan
+# H     bold light grey; looks like bright white
+# x     default foreground or background
+#  
+# Note that the above are standard ANSI colors.  The actual display may differ depending on the color capabilities of the terminal in use.
+#  
+# The order of the attributes are as follows:
+#  
+# 1.   directory
+# 2.   symbolic link
+# 3.   socket
+# 4.   pipe
+# 5.   executable
+# 6.   block special
+# 7.   character special
+# 8.   executable with setuid bit set
+# 9.   executable with setgid bit set
+# 10.  directory writable to others, with sticky bit
+# 11.  directory writable to others, without sticky bit
+
+# FZF config
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */Users/milind/.fzf/bin* ]]; then
+  export PATH="$PATH:/Users/milind/.fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "/Users/milind/.fzf/shell/completion.bash" 2> /dev/null
+
+# Key bindings
+# ------------
+source "/Users/milind/.fzf/shell/key-bindings.bash"
+
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_R_OPTS='--sort'
+export FZF_DEFAULT_OPTS="--height 40% --border --preview  '(coderay {} || cat {}) 2> /dev/null | head -500'"
+
+
+#if [[ ! "$PATH" == */Library/Frameworks/Python.framework/Versions/3.7/bin* ]]; then
+#  export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.7/bin"
+#fi
+powerline-daemon -q
+export POWERLINE_COMMAND=powerline
+export POWERLINE_CONFIG_COMMAND=powerline-config
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+
+. /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
