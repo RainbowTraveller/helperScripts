@@ -123,13 +123,19 @@
 
 " functions {
 "
-    fun! NewFile()
-        silent! 0r ~/.vim/templates/java_template
-        s/FILENAME/\=expand("%:t:r")/g
-    endfun
+	fun! NewJavaFile()
+		silent! 0r ~/.vim/templates/java_template
+		s/FILENAME/\=expand("%:t:r")/g
+	endfun
 
-    autocmd BufNewFile *.java call NewFile()
+	autocmd BufNewFile *.java call NewJaveFile()
 
+	fun! NewGoFile()
+		silent! 0r ~/.vim/templates/go_template
+		s/FILENAME/\=expand("%:t:r")/g
+	endfun
+
+	autocmd BufNewFile *.go call NewGoFile()
     fun! NumberToggle()
         if(&relativenumber == 1)
             set norelativenumber
