@@ -128,14 +128,14 @@
 		s/FILENAME/\=expand("%:t:r")/g
 	endfun
 
-	autocmd BufNewFile *.java call NewJaveFile()
+	autocmd BufNewFile *.java call NewJavaFile()
 
 	fun! NewGoFile()
 		silent! 0r ~/.vim/templates/go_template
-		s/FILENAME/\=expand("%:t:r")/g
 	endfun
 
 	autocmd BufNewFile *.go call NewGoFile()
+
     fun! NumberToggle()
         if(&relativenumber == 1)
             set norelativenumber
