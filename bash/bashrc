@@ -5,7 +5,7 @@
 
 
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/local/sbin:/usr/share:/usr/texbin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/local/sbin:/usr/share:/usr/texbin:/usr/local/go/bin
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
 export HADOOP_PREFIX=/Users/milind/WFMilind/opensource/hadoop/hadoop-2.7.0/
 export M2_HOME=/usr/local/apache-maven
@@ -16,7 +16,7 @@ export CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit-4.12.jar:$JUNIT_HOME/hamcrest-cor
 export ECLIPSE_HOME=/Users/milind/Applications/eclipse/Eclipse.app/Contents/Eclipse
 
 #Configuring the command prompt
-PS1='[\e[0;31m\u\e[m@\e[1;32m\h\e[m:\e[1;34m\w\e[m\$]\n'
+#PS1='[\e[0;31m\u\e[m@\e[1;32m\h\e[m:\e[1;34m\w\e[m\$]\n'
 
 
 export CLICOLOR=1
