@@ -1,0 +1,93 @@
+#Rebind the PREFIX key
+set -g prefix C-a
+unbind C-b
+
+# To speed up response
+set -sg escape-time 1
+#Start index 1 not 0
+set -g base-index 1
+setw -g pane-base-index 1
+
+#Prefix-r to refresh the conf changes
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+
+#Using Prefix key for applitions other than tmux
+bind C-a send-prefix
+
+#Set term color
+set -g default-terminal "screen-256color"
+
+#prev window
+bind p previous-window
+
+#Spliting Windows
+bind | split-window -h  -c "#{pane_current_path}"
+bind - split-window -v  -c "#{pane_current_path}"
+
+set -g message-fg white
+set -g message-bg black
+set -g message-attr bright
+
+#Default status bar
+set -g status-fg black
+set -g status-bg white
+
+#Modify the status bar
+set -g status-left-length 40
+
+#Bright colorscheme
+#set -g status-left "#[bg=red fg=white bright]#S #[bg=cyan fg=black bright] focus: #W"
+#set -g status-right "#[bg=yellow fg=black bright] %A %d %B %Y / %I:%M %p"
+
+#Dark colorscheme
+set -g status-left "#[bg=red fg=white bright]#S #[bg=cyan fg=white bright] focus: #W"
+set -g status-right "#[bg=yellow fg=white bright] %A %d %B %Y / %I:%M %p"
+
+set -g status-interval 60
+
+#Default Windows
+setw -g window-status-fg blue # Dark colorscheme
+#setw -g window-status-fg black # Bright colorscheme
+setw -g window-status-bg white
+setw -g window-status-attr bright
+
+#Current Window
+setw -g window-status-current-fg white
+setw -g window-status-current-bg blue
+setw -g window-status-current-attr bright
+
+#setw -g monitor-activity on
+#setw -g mode-mouse on
+set -g mouse on
+#set -g mouse-select-pane on
+#set -g mouse-resize-pane on
+#set -g mouse-select-window on
+
+#Set terminal Tab name to session name
+set-option -g set-titles on
+set-option -g set-titles-string '#S'
+
+
+#PANE borders
+set -g pane-border-fg green
+set -g pane-border-bg black
+set -g pane-active-border-fg white
+set -g pane-active-border-bg blue
+
+#Copy Paste
+set-window-option -g mode-keys vi
+#unbind [
+bind Escape copy-mode
+unbind p
+bind p paste-buffer
+bind -t vi-copy 'v' begin-selection
+#bind -t vi-copy 'y' copy-selection
+#For El-capitan OS
+bind -t vi-copy 'y' copy-pipe "pbcopy"
+set-window-option -g automatic-rename off
+set-option -g allow-rename off
+
+#Powerline Config
+run-shell "powerline-daemon -q"
+source /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf
+
