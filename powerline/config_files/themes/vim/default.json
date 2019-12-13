@@ -23,6 +23,7 @@
 			{
 				"function": "branch",
 				"exclude_modes": ["nc"],
+				"status_colors" : true,
 				"priority": 30
 			},
 			{
@@ -50,7 +51,7 @@
 			},
 			{
 				"function": "modified_indicator",
-				"before": " "
+				"before": "m"
 			},
 			{
 				"exclude_modes": ["i", "R", "Rv"],
@@ -61,12 +62,6 @@
 			{
 				"exclude_modes": ["nc"],
 				"function": "powerline.segments.vim.plugin.syntastic.syntastic",
-				"priority": 50
-			},
-			{
-				"exclude_modes": ["nc"],
-				"function": "powerline.segments.vim.plugin.tagbar.current_tag",
-				"draw_soft_divider": false,
 				"priority": 50
 			},
 			{
@@ -81,11 +76,6 @@
 			{
 				"function": "file_format",
 				"draw_soft_divider": false,
-				"exclude_modes": ["nc"],
-				"priority": 60
-			},
-			{
-				"function": "file_encoding",
 				"exclude_modes": ["nc"],
 				"priority": 60
 			},

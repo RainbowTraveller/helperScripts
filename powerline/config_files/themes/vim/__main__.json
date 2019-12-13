@@ -1,10 +1,18 @@
 {
-	"segment_data": {
-		"line_percent": {
-			"args": {
-				"gradient": true
-			},
-			"after": "%"
-		}
-	}
+"segment_data": {
+    "line_percent": {
+        "args": {
+            "gradient": true
+        },
+        "after": "%"
+    },
+
+    "file_directory": {
+        "args": {
+            "shorten_cwd": false,
+            "shorten_user": true,
+            "shorten_home": false
+        }
+    }
+}
 }
