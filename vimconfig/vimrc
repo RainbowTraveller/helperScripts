@@ -132,6 +132,7 @@
 
 	fun! NewGoFile()
 		silent! 0r ~/.vim/templates/go_template
+		s/FILENAME/\=expand("%:t:r")/g
 	endfun
 
 	autocmd BufNewFile *.go call NewGoFile()

@@ -123,7 +123,6 @@
     " Python {
         if count(g:plugin_groups, 'python')
             " Pick either python-mode or pyflakes & pydoc
-            Plugin 'klen/python-mode'
             Plugin 'yssource/python.vim'
             Plugin 'python_match.vim'
             Plugin 'pythoncomplete'
