@@ -58,12 +58,11 @@
             Plugin 'junegunn/limelight.vim'
             Plugin 'terryma/vim-multiple-cursors'
             Plugin 'vim-scripts/sessionman.vim'
-            Plugin 'matchit.zip'
             if (has("python") || has("python3"))
                 set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
                 set laststatus=2
                 set t_Co=256
-                Plugin 'Lokaltog/powerline'
+                Plugin 'powerline/powerline'
             else
                 Plugin 'vim-airline/vim-airline'
                 Plugin 'vim-airline/vim-airline-themes'
