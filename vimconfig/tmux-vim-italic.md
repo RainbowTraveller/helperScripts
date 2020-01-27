@@ -12,7 +12,7 @@ tic -o ~/.terminfo xterm-256color.terminfo
 tic -o ~/.terminfo tmux-256color.terminfo
 ```
 
-3. Add .vimrc following
+3. Add .vimrc following, make sure font is installed using `Plug`
 ```
 "Sublime-Monokai {
     "folliwing 2 lines are necessary for linux and not Mac OS
