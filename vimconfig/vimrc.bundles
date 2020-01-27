@@ -51,6 +51,7 @@
             Plugin 'scrooloose/nerdtree'
             Plugin 'altercation/vim-colors-solarized'
             Plugin 'spf13/vim-colors'
+            Plugin 'ErichDonGubler/vim-sublime-monokai'
             Plugin 'tpope/vim-surround'
             Plugin 'tpope/vim-repeat'
             Plugin 'rhysd/conflict-marker.vim'
@@ -58,15 +59,10 @@
             Plugin 'junegunn/limelight.vim'
             Plugin 'terryma/vim-multiple-cursors'
             Plugin 'vim-scripts/sessionman.vim'
-            if (has("python") || has("python3"))
-                set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
-                set laststatus=2
-                set t_Co=256
-                Plugin 'powerline/powerline'
-            else
-                Plugin 'vim-airline/vim-airline'
-                Plugin 'vim-airline/vim-airline-themes'
-            endif
+            set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
+            set laststatus=2
+            set t_Co=256
+            Plugin 'powerline/powerline', {'rtp': '/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim'}
             Plugin 'powerline/fonts'
             Plugin 'bling/vim-bufferline'
             Plugin 'easymotion/vim-easymotion'

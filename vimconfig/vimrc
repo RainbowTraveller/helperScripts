@@ -40,7 +40,10 @@
     set mousehide               " Hide the mouse cursor while typing
 
     "Settings for the line pointed by cursor
-    color       default            "Not using fancy solarized
+    "color       default            "Not using fancy solarized
+    "let g:hybrid_custom_term_colors = 1
+    "let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+    "colorscheme hybrid
     highlight   clear   SpellBad
     highlight   clear   SignColumn  " SignColumn should match background
     highlight   SpellBad        cterm=underline
@@ -363,6 +366,18 @@
         nnoremap <Leader>bt :FZFBTags<CR>
      "}
 
+	"Sublime-Monokai {
+        "folliwing 2 lines are necessary for linux and not Mac OS
+		let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+		let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+		set termguicolors
+		let g:sublimemonokai_term_italic = 1
+		colorscheme sublimemonokai
+		let java_comment_strings = 1
+		let java_highlight_functions = 1
+		let java_highlight_java_lang_ids = 1
+	"}
+
     "Youcompleteme {
 
         let g:syntastic_java_checkers = []
@@ -395,25 +410,4 @@
         nnoremap <Leader>yr :YcmRestartServer<CR>
         nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
     "}
-" }
-
-" Unexplored {
-    " Easier formatting
-   "nnoremap <silent> <leader>q gwip
-   ":nnoremap <F5> :buffers<CR>:buffer<Space>
-   ":nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-    ":hi comment ctermfg=darkcyan
-    ":set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ %{'tabn:'.tabpagenr()}\ lin:%l\,%L\ col:%c%V\ pos:%o\ ascii:%b\ %P
-    "set background=light
-    "
-    "
-    "if $TMUX == ''
-    "    set clipboard+=unnamed
-    "else
-    "    set clipboard=exclude:.*
-    "endif
-    "
-    "
-    "
-    "
 " }
