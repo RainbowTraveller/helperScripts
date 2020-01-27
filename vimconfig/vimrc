@@ -47,6 +47,7 @@
     highlight   clear   SpellBad
     highlight   clear   SignColumn  " SignColumn should match background
     highlight   SpellBad        cterm=underline
+    highlight 	Comment cterm=italic
 
     set showmode                    " Display the current mode
 
