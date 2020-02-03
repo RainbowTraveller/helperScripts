@@ -41,13 +41,7 @@
 
     "Settings for the line pointed by cursor
     "color       default            "Not using fancy solarized
-    "let g:hybrid_custom_term_colors = 1
-    "let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
-    "colorscheme hybrid
-    highlight   clear   SpellBad
     highlight   clear   SignColumn  " SignColumn should match background
-    highlight   SpellBad        cterm=underline
-    highlight 	Comment cterm=italic
 
     set showmode                    " Display the current mode
 
@@ -278,7 +272,7 @@
     " Plugin specific onnfig goes here
     "
     " hardtime {
-        nnoremap <leader>h :HardTimeToggle<CR>
+        nnoremap <leader>ht :HardTimeToggle<CR>
         let g:hardtime_timeout = 2000
         let g:hardtime_showmsg = 1
         let g:hardtime_allow_different_key = 1
@@ -351,20 +345,42 @@
         " Line completion (all open buffers)
         imap <c-x><c-l> <plug>(fzf-complete-line)
 
+        " Files
+        " Search Files
+        nnoremap <Leader>f :call FzfOmniFiles()<CR>
+
+        " Buffers
         " Display all open files to choose from
         nnoremap <leader>b :FZFBuffers<CR>
+
+        "History Repeats
+        " Display all recently opened files to choose from
+        nnoremap <leader>h :FZFHistory<CR>
+        "Search History
+        nnoremap <leader>h/ :FZFHistory/<CR>
+        "Commands history
+        nnoremap <leader>h: :FZFHistory:<CR>
+
+        " Tags
+        " Requires tag file
+        nnoremap <Leader>t :FZFTags<CR>
+        "Tags in current buffer
+        nnoremap <Leader>bt :FZFBTags<CR>
+
+        " Lines
+        " Jump to a line in the currently open buffers
+        nnoremap <leader>L :FZFLines<CR>
+        " Jump to a line in the same buffer
+        nnoremap <leader>bl :FZFBLines<CR>
+        "Search for the mark
+        nnoremap <leader>` :FZFMarks<CR>
+
         " Code search across all files
         nnoremap <leader>a :FZFAg<CR>
+
         " Possible commands that can be run on vim command prompt
         nnoremap <leader>; :FZFCommands<CR>
         nnoremap <leader>c :FZFCommits<CR>
-        " Jump to a line in the same file
-        nnoremap <leader>bl :FZFBLines<CR>
-        " Search Files
-        nnoremap <Leader>f :call FzfOmniFiles()<CR>
-        " tags
-        nnoremap <Leader>t :FZFTags<CR>
-        nnoremap <Leader>bt :FZFBTags<CR>
      "}
 
 	"Sublime-Monokai {
@@ -377,6 +393,9 @@
 		let java_comment_strings = 1
 		let java_highlight_functions = 1
 		let java_highlight_java_lang_ids = 1
+		highlight 	Comment cterm=italic
+		highlight   clear   SpellBad
+		highlight   SpellBad        cterm=underline,bold
 	"}
 
     "Youcompleteme {
