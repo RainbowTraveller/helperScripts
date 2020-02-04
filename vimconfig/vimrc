@@ -24,11 +24,7 @@
 " }
 
 " General {
-    :command WQ wq
-    :command Wq wq
-    :command W w
-    :command Q q
-    nnoremap <leader>rv :source $MYVIMRC<CR>
+    nnoremap <leader>rv :source ~/.vimrc<CR>
     "Scroll Up
     nnoremap <C-e> 10<C-e>
     "Scroll Down
@@ -174,7 +170,7 @@
     function! FzfOmniFiles()
         let is_git = system('git status')
         if v:shell_error
-            :FZFFiles
+            :FZFFiles ~/
         else
             :FZFGitFiles
         endif
@@ -212,6 +208,7 @@
     command! -bang -nargs=* -complete=file W w<bang> <args>
     command! -bang -nargs=* -complete=file Wq wq<bang> <args>
     command! -bang -nargs=* -complete=file WQ wq<bang> <args>
+    command! -bang -nargs=* -complete=file Wqa wqa<bang> <args>
     command! -bang Wa wa<bang>
     command! -bang WA wa<bang>
     command! -bang Q q<bang>
