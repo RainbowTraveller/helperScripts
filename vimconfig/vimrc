@@ -36,7 +36,6 @@
     set mousehide               " Hide the mouse cursor while typing
 
     "Settings for the line pointed by cursor
-    "color       default            "Not using fancy solarized
     highlight   clear   SignColumn  " SignColumn should match background
 
     set showmode                    " Display the current mode
@@ -117,6 +116,8 @@
 
 " functions {
 "
+    "Autocommands are a way to tell Vim to run certain commands whenever certain events happen.
+    "Java file default template
 	fun! NewJavaFile()
 		silent! 0r ~/.vim/templates/java_template
 		s/FILENAME/\=expand("%:t:r")/g
@@ -124,6 +125,7 @@
 
 	autocmd BufNewFile *.java call NewJavaFile()
 
+    "golang file default template
 	fun! NewGoFile()
 		silent! 0r ~/.vim/templates/go_template
 		s/FILENAME/\=expand("%:t:r")/g
@@ -131,6 +133,7 @@
 
 	autocmd BufNewFile *.go call NewGoFile()
 
+    "Toggle between regular vs relative numbering of lines
     fun! NumberToggle()
         if(&relativenumber == 1)
             set norelativenumber
@@ -142,29 +145,22 @@
 
     nnoremap <leader>tn :call NumberToggle()<cr>"
 
+    "Set relative numbers by default to any file on given events
     augroup numbertoggle
         autocmd!
         autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
     augroup END
 
-    fun! TWS()
-        let l:save = winsaveview()
-        %s/\s\+$//e
-        call winrestview(l:save)
-    endfun
-
     " Strip whitespace
-    function! StripTrailingWhitespace()
-        " Preparation: save last search, and cursor position.
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
+    fun! DeleteTrailingWhiteSpaces()
+        " Preparation: save last search, and cursor position and view of the
+        " current window
+        let l:save = winsaveview()
         " do the business:
         %s/\s\+$//e
         " clean up: restore previous search history, and cursor position
-        let @/=_s
-        call cursor(l, c)
-    endfunction
+        call winrestview(l:save)
+    endfun
 
     "FZF
     function! FzfOmniFiles()
@@ -198,7 +194,7 @@
     :nmap <s-tab> gT
     noremap j gj
     noremap k gk
-    :noremap <Leader>w :call TWS()<CR>
+    :noremap <Leader>w :call DeleteTrailingWhiteSpaces()<CR>
     :imap sout<Tab> System.out.println("");<Esc>F"i
 
     autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:keep_trailing_whitespace') | call TWS() | endif
