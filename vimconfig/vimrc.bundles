@@ -34,13 +34,14 @@
         Plugin 'gmarik/vundle'
       " fzf {
           set rtp+=~/.fzf
-          Plugin 'junegunn/fzf.vim'
+          Plugin 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
       " }
     " }
 
     " In your .vimrc.before.local file
     " list only the plugin groups you will use
-    let g:plugin_groups=['general', 'writing', 'neocomplete', 'programming', 'python', 'misc','youcompleteme','scala', 'go', 'ruby']
+    " let g:plugin_groups=['general', 'writing', 'neocomplete', 'programming', 'python', 'misc','youcompleteme','scala', 'go', 'ruby']
+    let g:plugin_groups=['general', 'writing', 'neocomplete', 'programming', 'python', 'youcompleteme', 'go']
 
     " To override all the included Plugins, add the following to your
     " .vimrc.bundles.local file:
@@ -150,8 +151,6 @@
 
     " Misc {
         if count(g:plugin_groups, 'misc')
-          Plugin 'rust-lang/rust.vim'
-          Plugin 'tpope/vim-markdown'
           Plugin 'spf13/vim-preview'
           Plugin 'tpope/vim-cucumber'
           Plugin 'cespare/vim-toml'

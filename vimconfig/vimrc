@@ -211,7 +211,7 @@
     command! -bang QA qa<bang>
     command! -bang Qa qa<bang>
 
-    "Typo correction while opening multiple files
+    " Typo correction while opening multiple files
     " Tabe file1 file2 file3
     cmap Tabe tabe
 
