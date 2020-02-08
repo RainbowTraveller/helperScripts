@@ -317,6 +317,20 @@
     "}
 
     "easy-motion {
+        " Useful within the visual pane fast movement
+
+        "Searches a single character in both backward and forward direction
+        map  <Leader><Leader>f <Plug>(easymotion-bd-f)
+
+        " s{char}{char} to move to {char}{char}
+        " searches for desired 2 input characters occurring consecutive
+        nmap s <Plug>(easymotion-overwin-f2)
+
+        " Move to line
+        map <Leader><Leader>L <Plug>(easymotion-bd-jk)
+
+        " Move to word
+        map  <Leader><Leader>w <Plug>(easymotion-bd-w)
     "}
 
     "fzf {
