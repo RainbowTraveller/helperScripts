@@ -28,8 +28,20 @@ tic -o ~/.terminfo tmux-256color.terminfo
 ```
 
 4. add to .tmux.conf
+
+In linux it fails for screen term
 `set -g default-terminal "screen-256color"`
+
+So try this
+`set -g default-terminal "xterm-256color"`
 
 and for linux add this too
 
 `set -as terminal-overrides ',xterm*:Tc:sitm=\E[3m'`
+
+
+5. Also add this to vimrc
+ : is achieved by Ctrl + V + Esc
+
+set t_ZH=^[[3m
+set t_ZR=^[[23m
