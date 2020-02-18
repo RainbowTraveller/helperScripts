@@ -264,6 +264,26 @@
 " Plugins {
     " Plugin specific onnfig goes here
     "
+    " auto-pair {
+        let g:AutoPairsFlyMode = 1
+        let g:AutoPairsShortcutBackInsert = '<C-b>'
+    "}
+    " bufferline {
+        let g:bufferline_echo = 1
+        let g:bufferline_active_buffer_left = '['
+        let g:bufferline_active_buffer_right = ']'
+        let g:bufferline_modified = '+'
+        let g:bufferline_show_bufnr = 1
+        " default, no rotate, no scrolling
+        let g:bufferline_rotate = 1
+
+        " scrolling with fixed current buffer position
+        let g:bufferline_rotate = 1
+
+        let g:bufferline_fixed_index =  0 "always first
+        let g:bufferline_pathshorten = 1
+    " }
+
     " hardtime {
         nnoremap <leader>ht :HardTimeToggle<CR>
         let g:hardtime_timeout = 2000
