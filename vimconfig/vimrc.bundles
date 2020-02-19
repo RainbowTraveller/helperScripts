@@ -32,6 +32,7 @@
 
     " Deps {
         Plugin 'gmarik/vundle'
+
       " fzf {
           set rtp+=~/.fzf
           Plugin 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -48,95 +49,93 @@
     "
     " General {
         if count(g:plugin_groups, 'general')
-            Plugin 'takac/vim-hardtime'
-            Plugin 'scrooloose/nerdtree'
             Plugin 'altercation/vim-colors-solarized'
-            Plugin 'spf13/vim-colors'
+            Plugin 'bling/vim-bufferline'
+            Plugin 'easymotion/vim-easymotion'
             Plugin 'ErichDonGubler/vim-sublime-monokai'
-            Plugin 'tpope/vim-surround'
-            Plugin 'tpope/vim-repeat'
-            Plugin 'rhysd/conflict-marker.vim'
+            Plugin 'flazz/vim-colorschemes'
             Plugin 'jiangmiao/auto-pairs'
+            "Plugin 'gcmt/wildfire.vim'
+            "Plugin 'jistr/vim-nerdtree-tabs'
             Plugin 'junegunn/limelight.vim'
-            Plugin 'terryma/vim-multiple-cursors'
-            Plugin 'vim-scripts/sessionman.vim'
+            "Plugin 'kana/vim-textobj-user'
+            "Plugin 'kana/vim-textobj-indent'
+            "Plugin 'mbbill/undotree'
+            "Plugin 'mhinz/vim-signify'
+            "Plugin 'nathanaelkane/vim-indent-guides'
+            "Plugin 'osyo-manga/vim-over'
             set rtp+=/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim
             set laststatus=2
             set t_Co=256
             Plugin 'powerline/powerline', {'rtp': '/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/vim'}
             Plugin 'powerline/fonts'
-            Plugin 'bling/vim-bufferline'
-            Plugin 'easymotion/vim-easymotion'
-            Plugin 'jistr/vim-nerdtree-tabs'
-            Plugin 'flazz/vim-colorschemes'
-            Plugin 'mbbill/undotree'
-            Plugin 'nathanaelkane/vim-indent-guides'
-            if !exists('g:no_views')
-                Plugin 'vim-scripts/restore_view.vim'
-            endif
-            Plugin 'mhinz/vim-signify'
-            Plugin 'tpope/vim-abolish.git'
-            Plugin 'osyo-manga/vim-over'
-            Plugin 'kana/vim-textobj-user'
-            Plugin 'kana/vim-textobj-indent'
-            Plugin 'gcmt/wildfire.vim'
+            Plugin 'rhysd/conflict-marker.vim'
+            Plugin 'scrooloose/nerdtree'
+            Plugin 'spf13/vim-colors'
+            Plugin 'takac/vim-hardtime'
+            Plugin 'terryma/vim-multiple-cursors'
+            "Plugin 'tpope/vim-abolish.git'
+            Plugin 'tpope/vim-repeat'
+            Plugin 'tpope/vim-surround'
+            "Plugin 'vim-scripts/sessionman.vim'
+            "if !exists('g:no_views')
+            "    Plugin 'vim-scripts/restore_view.vim'
+            "endif
         endif
     " }
 
     " Writing {
         if count(g:plugin_groups, 'writing')
-            Plugin 'reedes/vim-litecorrect'
-            Plugin 'reedes/vim-textobj-sentence'
-            Plugin 'reedes/vim-textobj-quote'
-            Plugin 'reedes/vim-wordy'
+            "Plugin 'reedes/vim-litecorrect'
+            "Plugin 'reedes/vim-textobj-quote'
+            "Plugin 'reedes/vim-textobj-sentence'
+            "Plugin 'reedes/vim-wordy'
         endif
     " }
 
     " General Programming {
         if count(g:plugin_groups, 'programming')
             " Pick one of the checksyntax, jslint, or syntastic
-            Plugin 'tpope/vim-fugitive'
-            Plugin 'mattn/webapi-vim'
-            Plugin 'mattn/gist-vim'
-            Plugin 'scrooloose/nerdcommenter'
-            Plugin 'tpope/vim-commentary'
-            Plugin 'godlygeek/tabular'
-            Plugin 'luochen1990/rainbow'
+            "Plugin 'godlygeek/tabular'
+            "Plugin 'luochen1990/rainbow'
             if executable('ctags')
                 Plugin 'majutsushi/tagbar'
             endif
+            "Plugin 'mattn/gist-vim'
+            "Plugin 'mattn/webapi-vim'
+            "Plugin 'scrooloose/nerdcommenter'
+            "Plugin 'tpope/vim-commentary'
+            Plugin 'tpope/vim-fugitive'
         endif
     " }
 
     " Snippets & AutoComplete {
         if count(g:plugin_groups, 'youcompleteme')
+            "Plugin 'honza/vim-snippets'
+            "Plugin 'SirVer/ultisnips'
             Plugin 'Valloric/YouCompleteMe'
-            Plugin 'SirVer/ultisnips'
-            Plugin 'honza/vim-snippets'
+            " For adding fast code templates 
+            "Plugin 'xptemplate'
         endif
     " }
 
     " Python {
         if count(g:plugin_groups, 'python')
-            " Pick either python-mode or pyflakes & pydoc
-            Plugin 'yssource/python.vim'
-            Plugin 'python_match.vim'
-            Plugin 'pythoncomplete'
+            " Add python plugins if  required
         endif
     " }
 
     " Scala {
         if count(g:plugin_groups, 'scala')
-            Plugin 'derekwyatt/vim-scala'
-            Plugin 'derekwyatt/vim-sbt'
-            Plugin 'xptemplate'
+            "Plugin 'derekwyatt/vim-scala'
+            "Plugin 'derekwyatt/vim-sbt'
         endif
     " }
 
     " Ruby {
         if count(g:plugin_groups, 'ruby')
-            Plugin 'tpope/vim-rails'
-            let g:rubycomplete_buffer_loading = 1
+            "Plugin 'tpope/vim-rails'
+            "let g:rubycomplete_buffer_loading = 1
             "let g:rubycomplete_classes_in_global = 1
             "let g:rubycomplete_rails = 1
         endif
@@ -151,11 +150,11 @@
 
     " Misc {
         if count(g:plugin_groups, 'misc')
-          Plugin 'spf13/vim-preview'
-          Plugin 'tpope/vim-cucumber'
-          Plugin 'cespare/vim-toml'
-          Plugin 'quentindecock/vim-cucumber-align-pipes'
-          Plugin 'saltstack/salt-vim'
+          "Plugin 'cespare/vim-toml'
+          "Plugin 'saltstack/salt-vim'
+          "Plugin 'spf13/vim-preview'
+          "Plugin 'tpope/vim-cucumber'
+          "Plugin 'quentindecock/vim-cucumber-align-pipes'
           "Plugin 'MarcWeber/vim-addon-mw-utils'
           "Plugin 'tomtom/tlib_vim'
         endif
