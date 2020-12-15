@@ -121,7 +121,7 @@
     "Java file default template
 	fun! NewJavaFile()
 		silent! 0r ~/.vim/templates/java_template
-		s/FILENAME/\=expand("%:t:r")/g
+		s/FILENAME/\=Expand("%:t:r")/g
 	endfun
 
 	autocmd BufNewFile *.java call NewJavaFile()
