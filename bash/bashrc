@@ -71,11 +71,11 @@ function winname {
 # G     bold cyan
 # H     bold light grey; looks like bright white
 # x     default foreground or background
-#  
+#
 # Note that the above are standard ANSI colors.  The actual display may differ depending on the color capabilities of the terminal in use.
-#  
+#
 # The order of the attributes are as follows:
-#  
+#
 # 1.   directory
 # 2.   symbolic link
 # 3.   socket
@@ -123,6 +123,14 @@ POWERLINE_BASH_SELECT=1
 
 . /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
 
+
+#for zsh
+export FZF_BASE="$HOME/.fzf"
+plugins=(git
+     zsh-syntax-highlighting
+     fzf)
+
+source $ZSH/oh-my-zsh.sh # after installing oh-my-zsh
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
