@@ -1,0 +1,14 @@
+Git Bisect example
+
+Purpose : To find culprit commit
+
+Step 1 : 
+
+git checkout -b finding-neverland
+
+
+use git show good-commit-id : make sure this is the ok commit
+
+use git show bad-commit-id : make sure things went south here
+
+
