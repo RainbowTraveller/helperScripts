@@ -1,0 +1,161 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+#Customizations
+#
+
+[ -r /Users/milindv/.profile_lda ] && . /Users/milindv/.profile_lda
+
+export url="https://sourcegraph.uberinternal.com"
+export CONTAINER_HOSTNAME=`hostname`.local
+export CONTAINER_IP=`docker network inspect bridge | jq -r '. | first | .IPAM.Config | first | .Gateway'`
+
+unset JAVA_HOME
+export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
+export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
+alias jdk_11='export JAVA_HOME="$JAVA11_HOME" && export PATH="$PATH:$JAVA_HOME/bin"'
+alias jdk_8='export JAVA_HOME="$JAVA8_HOME" && export PATH="$PATH:$JAVA_HOME/bin"'
+jdk_11 # Use jdk 11 as the default jdk
+
+#ls command alias
+#alias vim="/usr/local/bin/vim"
+alias ls="ls -hG"
+alias ll="ls -lhG"
+alias la="ls -ahlG"
+alias grep="grep --color"
+alias pm="git pull --rebase"
+alias rbs="git rebase main"
+
+#alias tmux="TERM=xterm-256color tmux"
+alias work="cd WMilind/fievel"
+alias me="cd PMilind"
+alias gchk='git checkout $(git branch | fzf)'
+alias vim='nvim'
+
+if [[ ! "$PATH" == */usr/local/Cellar/python@3.9/3.9.1_3/Frameworks/Python.framework/Versions/3.9/bin* ]]; then
+  export PATH="$PATH:/usr/local/Cellar/python@3.9/3.9.1_3/Frameworks/Python.framework/Versions/3.9/bin"
+fi
+
+if [[ ! "$PATH" == */usr/local/bin/python3* ]]; then
+  export PATH="$PATH:/usr/local/bin/python3"
+fi
+#if [[ ! "$PATH" == */usr/local/Cellar/python@2/2.7.17_1/Frameworks/Python.framework/Versions/2.7/bin* ]]; then
+#  export PATH="$PATH:/usr/local/Cellar/python@2/2.7.17_1/Frameworks/Python.framework/Versions/2.7/bin"
+#fi
+
+powerline-daemon -q
+export POWERLINE_COMMAND=powerline
+export POWERLINE_CONFIG_COMMAND=powerline-config
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+POWERLINE_HIDE_HOST_NAME="true"
+
+# . /usr/local/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
+#. /Users/milindv/Library/Python/3.8/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+. /Users/milindv/Library/Python/3.9/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+#. /Users/milindv/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+
+export MONOREPO_GOPATH_MODE=1 # This is optional. Without it, GOPATH mode will be off by default
+source $HOME/gopathmodeFunc.sh
+eval "$(direnv hook zsh)"
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/milindv/.oh-my-zsh"
+
+for i in /etc/profile.d/*.sh ; do
+    if [ -r "$i" ]; then
+        . $i
+    fi
+done
+
+# FZF config
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == */Users/milindv/.fzf/bin* ]]; then
+  export PATH="$PATH:/Users/milindv/.fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "/Users/milindv/.fzf/shell/completion.zsh" 2> /dev/null
+
+## Key bindings
+## ------------
+source "/Users/milindv/.fzf/shell/key-bindings.zsh"
+
+## Setting fd as the default source for fzf
+##Only if fd is successfully installed otherwise comment this line
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_CTRL_R_OPTS='--sort'
+export FZF_DEFAULT_OPTS="--color=fg+:#000000,bg+:#C0C0C0,hl:#00BFFF,hl+:#DC143C,info:27 --height 40% --border --preview  '(coderay {} || cat {}) 2> /dev/null | head -500'"
+export PATH="$PATH:/Users/milindv/gocode"
+export FZF_BASE="$HOME/.fzf"
+export GREP_OPTIONS='--color=auto'
+
+#fdiff() {
+#  preview="git diff $@ --color=always -- {-1}"
+#  git diff $@ --name-only | fzf -m --ansi --preview $preview
+#}
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+#HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+#ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+#COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+#plugins=(git
+plugins=(zsh-syntax-highlighting
+    fzf)
+
+source $ZSH/oh-my-zsh.sh
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+
+gcop() {
+    git log \
+        --reverse \
+        --color=always  \
+        --format="%C(cyan)%h %C(blue)%ar%C(auto)%d \
+        %C(yellow)%s%+b %C(black)%ae"  "$@"  |
+        fzf -i -e +s \
+        --tiebreak=index \
+        --no-multi \
+        --ansi \
+        --border \
+        --preview  "$_viewGitLogLine" \
+        --header "enter : view C-c : copy hash" \
+        --bind "enter:execute:$_viewGitLogLine | less -R" \
+        --bind "ctrl-c:execute:$_gitLogLineToHash |
+                xclip -r -selection clipboard"
+}
+
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
