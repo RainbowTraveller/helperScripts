@@ -1,99 +1,33 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-#Customizations
-#
-
-[ -r /Users/milindv/.profile_lda ] && . /Users/milindv/.profile_lda
-
-export url="https://sourcegraph.uberinternal.com"
-export CONTAINER_HOSTNAME=`hostname`.local
-export CONTAINER_IP=`docker network inspect bridge | jq -r '. | first | .IPAM.Config | first | .Gateway'`
-
-unset JAVA_HOME
-export JAVA8_HOME="$(/usr/libexec/java_home -v1.8)"
-export JAVA11_HOME="$(/usr/libexec/java_home -v11)"
-alias jdk_11='export JAVA_HOME="$JAVA11_HOME" && export PATH="$PATH:$JAVA_HOME/bin"'
-alias jdk_8='export JAVA_HOME="$JAVA8_HOME" && export PATH="$PATH:$JAVA_HOME/bin"'
-jdk_11 # Use jdk 11 as the default jdk
-
 #ls command alias
-#alias vim="/usr/local/bin/vim"
 alias ls="ls -hG"
 alias ll="ls -lhG"
 alias la="ls -ahlG"
 alias grep="grep --color"
-alias pm="git pull --rebase"
-alias rbs="git rebase main"
+alias pr="git pull --rebase"
+alias rbm="git rebase main"
 
-#alias tmux="TERM=xterm-256color tmux"
-alias work="cd WMilind/fievel"
-alias me="cd PMilind"
 alias gchk='git checkout $(git branch | fzf)'
 alias vim='nvim'
 
-if [[ ! "$PATH" == */usr/local/Cellar/python@3.9/3.9.1_3/Frameworks/Python.framework/Versions/3.9/bin* ]]; then
-  export PATH="$PATH:/usr/local/Cellar/python@3.9/3.9.1_3/Frameworks/Python.framework/Versions/3.9/bin"
-fi
-
-if [[ ! "$PATH" == */usr/local/bin/python3* ]]; then
-  export PATH="$PATH:/usr/local/bin/python3"
-fi
-#if [[ ! "$PATH" == */usr/local/Cellar/python@2/2.7.17_1/Frameworks/Python.framework/Versions/2.7/bin* ]]; then
-#  export PATH="$PATH:/usr/local/Cellar/python@2/2.7.17_1/Frameworks/Python.framework/Versions/2.7/bin"
-#fi
-
-powerline-daemon -q
-export POWERLINE_COMMAND=powerline
-export POWERLINE_CONFIG_COMMAND=powerline-config
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-POWERLINE_HIDE_HOST_NAME="true"
-
-# . /usr/local/lib/python3.7/site-packages/powerline/bindings/zsh/powerline.zsh
-#. /Users/milindv/Library/Python/3.8/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-. /Users/milindv/Library/Python/3.9/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-#. /Users/milindv/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
-
-export MONOREPO_GOPATH_MODE=1 # This is optional. Without it, GOPATH mode will be off by default
-source $HOME/gopathmodeFunc.sh
-eval "$(direnv hook zsh)"
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/milindv/.oh-my-zsh"
-
-for i in /etc/profile.d/*.sh ; do
-    if [ -r "$i" ]; then
-        . $i
-    fi
-done
-
-# FZF config
-# Setup fzf
-# ---------
-if [[ ! "$PATH" == */Users/milindv/.fzf/bin* ]]; then
-  export PATH="$PATH:/Users/milindv/.fzf/bin"
-fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "/Users/milindv/.fzf/shell/completion.zsh" 2> /dev/null
-
-## Key bindings
-## ------------
-source "/Users/milindv/.fzf/shell/key-bindings.zsh"
-
 ## Setting fd as the default source for fzf
 ##Only if fd is successfully installed otherwise comment this line
+export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
+export FZF_DEFAULT_OPTS="--no-mouse --height 40% --multi --tmux center,40% --layout reverse \
+    --color=fg+:#000000,bg+:#C0C0C0,hl:#00BFFF,hl+:#DC143C,info:27 
+    --border=bold --margin=1 --padding=1  --prompt 'Files >> '  --pointer '>' \
+    --walker-skip .git,node_modules,target \
+    --header 'CTRL-T: Switch between Files/Directories' \
+    --bind 'ctrl-t:transform:[[ ! \$FZF_PROMPT =~ Files ]] &&
+          echo \"change-prompt(Files >> )+reload(fd --type file)\" ||
+          echo \"change-prompt(Directories >> )+reload(fd --type directory)\"'
+          --preview ' [[  \$(file --mime {}) =~ binary  &&  ! \$(file --mime {}) =~ directory ]] &&
+              echo {} is a binary file ||
+              ([[  \$FZF_PROMPT =~ Files  ]] && bat --color=always {} ||
+              [[  \$(file --mime {}) =~ directory  ]] && tree -C {})'"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_R_OPTS='--sort'
-export FZF_DEFAULT_OPTS="--color=fg+:#000000,bg+:#C0C0C0,hl:#00BFFF,hl+:#DC143C,info:27 --height 40% --border --preview  '(coderay {} || cat {}) 2> /dev/null | head -500'"
+#export FZF_DEFAULT_OPTS="--color=fg+:#000000,bg+:#C0C0C0,hl:#00BFFF,hl+:#DC143C,info:27 --height 40% --border --preview  '(coderay {} || cat {}) 2> /dev/null | head -500'"
 export PATH="$PATH:/Users/milindv/gocode"
 export FZF_BASE="$HOME/.fzf"
 export GREP_OPTIONS='--color=auto'
@@ -154,8 +88,24 @@ gcop() {
                 xclip -r -selection clipboard"
 }
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias nvim-lazy="NVIM_APPNAME=nvim_lazy nvim"
+alias nvim-adv="NVIM_APPNAME=nvim_adv nvim"
+alias nvim-astro="NVIM_APPNAME=nvim_astro nvim"
+
+function nvims() {
+  items=("default" "nvim_lazy" "nvim_adv", "nvim_astro")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}

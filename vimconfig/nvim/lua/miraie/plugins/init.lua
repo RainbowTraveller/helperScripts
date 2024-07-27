@@ -1,0 +1,32 @@
+return {
+	-- Plugins
+	require("miraie.plugins.colors"),
+	require("miraie.plugins.telescope"),
+	require("miraie.plugins.slueth"),
+	require("miraie.plugins.slueth"),
+	require("miraie.plugins.treesitter"),
+	require("miraie.plugins.comment"),
+	require("miraie.plugins.whichkey"),
+	require("miraie.plugins.git"),
+	require("miraie.plugins.gitsigns"),
+	require("miraie.plugins.autopair"),
+	require("miraie.plugins.undotree"),
+	require("miraie.plugins.metals"),
+	require("miraie.plugins.jdtls"),
+	require("miraie.plugins.icons"),
+	require("miraie.plugins.hop"),
+	require("miraie.plugins.lualine"),
+	require("miraie.plugins.bufferline"),
+	require("miraie.plugins.dap"),
+	require("miraie.plugins.mason"),
+	require("miraie.plugins.alpha"),
+	require("miraie.plugins.snip"),
+	require("miraie.plugins.filetype"),
+	require("miraie.plugins.todo"),
+	require("miraie.plugins.lspconfig.lsp"),
+
+	-- Config
+	require("miraie.config.autocmds"),
+	require("miraie.config.remap"),
+	require("miraie.config.options"),
+}
