@@ -21,4 +21,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		})
 	end,
 })
+
+-- format on save, the function is present in autoformat.lua file
+-- The current buffer is passed as argument
+-- The autoformat plugin has logic to decide which file it is and call
+-- corresponding formatter
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
+	end,
+})
 return {}
