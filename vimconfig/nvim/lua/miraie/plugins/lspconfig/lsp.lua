@@ -167,23 +167,23 @@ return {
 					}),
 				},
 
-				csharp_ls = {
-					lspconfig.csharp_ls.setup({
-						capabilities = capabilities,
-						handlers = {
-							--			["textDocument/definition"] = require("csharpls_extended").handler,
-							--			["textDocument/typeDefinition"] = require("csharpls_extended").handler,
-						},
-						cmd = { "csharpls" },
-						filetypes = { "cs" },
-						root_dir = function(fname)
-							return util.root_pattern("*.sln")(fname) or util.root_pattern("*.csproj")(fname)
-						end,
-						init_options = {
-							AutomaticWorkspaceInit = true,
-						},
-					}),
-				},
+				--csharp_ls = {
+				--	lspconfig.csharp_ls.setup({
+				--		capabilities = capabilities,
+				--		handlers = {
+				--			--			["textDocument/definition"] = require("csharpls_extended").handler,
+				--			--			["textDocument/typeDefinition"] = require("csharpls_extended").handler,
+				--		},
+				--		cmd = { "csharpls" },
+				--		filetypes = { "cs" },
+				--		root_dir = function(fname)
+				--			return util.root_pattern("*.sln")(fname) or util.root_pattern("*.csproj")(fname)
+				--		end,
+				--		init_options = {
+				--			AutomaticWorkspaceInit = true,
+				--		},
+				--	}),
+				--},
 
 				pyright = {
 					lspconfig.pyright.setup({
