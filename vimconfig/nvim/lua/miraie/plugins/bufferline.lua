@@ -1,7 +1,6 @@
 return {
+
 	"akinsho/bufferline.nvim",
-	event = "VeryLazy",
-	version = "*",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 	},
@@ -11,7 +10,10 @@ return {
 
 		bufferline.setup({
 			options = {
-				numbers = "none",
+				mode = "buffers",
+				style_preset = bufferline.style_preset.default,
+				numbers = "both",
+				modified_icon = "*",
 				indicator = {
 					icon = "▎",
 					style = "icon",
@@ -20,6 +22,7 @@ return {
 					{
 						filetype = "NvimTree",
 						text = "File Explorer",
+						text_align = "left",
 						separator = true,
 					},
 				},
@@ -30,6 +33,12 @@ return {
 					reveal = { "close" },
 				},
 				diagnostics = "nvim_lsp",
+				color_icons = true,
+				show_buffer_icons = true, -- disable filetype icons for buffers
+				show_buffer_close_icons = true,
+				show_close_icon = true,
+				show_tab_indicators = true,
+				show_duplicate_prefix = true,
 				diagnostics_indicator = function(count, level, diagnostics_dict, context)
 					-- return "("..count..")"
 					local icon = level:match("error") and " " or " "
