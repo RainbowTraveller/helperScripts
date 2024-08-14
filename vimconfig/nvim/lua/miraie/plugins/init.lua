@@ -23,6 +23,7 @@ return {
 	require("miraie.plugins.snip"),
 	require("miraie.plugins.filetype"),
 	require("miraie.plugins.todo"),
+	require("miraie.plugins.neo-tree"),
 	require("miraie.plugins.lspconfig.lsp"),
 
 	-- Config
