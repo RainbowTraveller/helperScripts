@@ -7,7 +7,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"BurntSushi/ripgrep",
 		"nvim-telescope/telescope-ui-select.nvim",
-		--"nvim-treesitter/nvim-treesitter",
+		"nvim-telescope/telescope-dap.nvim",
 		{
 			-- If encountering errors, see telescope-fzf-native README for install instructions
 			"nvim-telescope/telescope-fzf-native.nvim",
@@ -66,6 +66,11 @@ return {
 					case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 					-- the default case_mode is "smart_case"
 				},
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown({
+						-- even more opts
+					}),
+				},
 			},
 		})
 
@@ -73,7 +78,11 @@ return {
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("ui-select")
 		require("telescope").load_extension("metals")
+		require("telescope").load_extension("noice")
 		require("telescope.themes").get_dropdown()
+
+		-- DAP integration
+		require("telescope").load_extension("dap")
 
 		local builtin = require("telescope.builtin")
 
