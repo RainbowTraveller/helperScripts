@@ -109,6 +109,8 @@ local map = function()
 	vim.keymap.set("n", "<leader>dl", function()
 		require("dap").run_last()
 	end)
+	-- Dismiss Noice message
+	vim.keymap.set("n", "<leader>dm", "<cmd>NoiceDismess<CR>", { desc = "Dismiss Noice Message" })
 end
 
 map()
