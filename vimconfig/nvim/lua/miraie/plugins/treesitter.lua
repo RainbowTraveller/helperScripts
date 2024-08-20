@@ -15,7 +15,6 @@ return {
 			"python",
 			"tmux",
 			"yaml",
-			"c_sharp",
 		},
 		-- Autoinstall languages that are not installed
 		auto_install = true,
