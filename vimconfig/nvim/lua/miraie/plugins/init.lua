@@ -24,6 +24,7 @@ return {
 	require("miraie.plugins.filetype"),
 	require("miraie.plugins.todo"),
 	require("miraie.plugins.neo-tree"),
+	require("miraie.plugins.surround"),
 	require("miraie.plugins.lspconfig.lsp"),
 
 	-- Config
