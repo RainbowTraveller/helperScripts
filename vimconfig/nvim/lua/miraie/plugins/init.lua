@@ -25,6 +25,7 @@ return {
 	require("miraie.plugins.todo"),
 	require("miraie.plugins.neo-tree"),
 	require("miraie.plugins.surround"),
+	require("miraie.plugins.neogit"),
 	require("miraie.plugins.lspconfig.lsp"),
 
 	-- Config
