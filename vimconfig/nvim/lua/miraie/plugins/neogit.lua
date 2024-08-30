@@ -8,11 +8,12 @@ return {
 	},
 	config = function()
 		local neogit = require("neogit")
-		vim.keymap.set("n", "<leader>go", neogit.open, { silent = true, noremap = true })
-		vim.keymap.set("n", "<leader>gc", ":Neogit commit<CR>", { silent = true, noremap = true })
-		vim.keymap.set("n", "<leader>pl", ":Neogit pull<CR>", { silent = true, noremap = true })
-		vim.keymap.set("n", "<leader>ps", ":Neogit push<CR>", { silent = true, noremap = true })
-		vim.keymap.set("n", "<leader>gb", ":Telescope git_brances<CR>", { silent = true, noremap = true })
-		neogit.setup()
+		neogit.setup({})
+		vim.keymap.set("n", "<leader>go", neogit.open({ kind = "vsplit", silent = true, noremap = true }))
+		vim.keymap.set("n", "<leader>gc", neogit.commit({ silent = true, noremap = true }))
+		vim.keymap.set("n", "<leader>pl", neogit.pull({ silent = true, noremap = true }))
+		vim.keymap.set("n", "<leader>ps", neogit.push()({ silent = true, noremap = true }))
+		vim.keymap.set("n", "<leader>gr", neogit.rebase()({ silent = true, noremap = true }))
+		vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { silent = true, noremap = true })
 	end,
 }
