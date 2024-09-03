@@ -7,13 +7,16 @@ local options = function()
 
 	-- Set tab and spaces
 	vim.opt.tabstop = 4
-	vim.opt.softtabstop = 4 -- Let backspace delete indent
+	vim.opt.softtabstop = 4
 	vim.opt.shiftwidth = 4
 	vim.opt.expandtab = true
 
 	-- Please help indenting
 	vim.opt.smartindent = true
 	vim.opt.autoindent = true
+
+	-- Let backspace delete indent
+	vim.opt.backspace = indent, eol, start
 
 	-- No text wrap
 	vim.opt.wrap = false
