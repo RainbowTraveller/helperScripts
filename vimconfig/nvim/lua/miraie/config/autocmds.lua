@@ -1,3 +1,4 @@
+-- Common functions
 local function augroup(name)
 	return vim.api.nvim_create_augroup("miraie_" .. name, { clear = true })
 end
@@ -8,6 +9,7 @@ local map = function(keys, func, desc, buff)
 	vim.keymap.set("n", keys, func, { buffer = buff, desc = "LSP: " .. desc })
 end
 
+---------------------------------- AUTOCOMMANDS --------------------------------------------------
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -112,4 +114,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = "*.txt",
+	callback = function()
+		if vim.o.filetype == "help" then
+			vim.cmd.wincmd("T")
+		end
+	end,
+})
 return {}
