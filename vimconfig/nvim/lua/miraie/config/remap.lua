@@ -1,4 +1,10 @@
 local map = function()
+	-- Help yourself  WARNING : This will disable arrow keys
+	vim.keymap.set("n", "<RIGHT>", ":cnext<CR>")
+	vim.keymap.set("n", "<RIGHT><RIGHT>", ":cnfile<CR><C-G")
+	vim.keymap.set("n", "<LEFT>", ":cprev<CR>")
+	vim.keymap.set("n", "<LEFT><LEFT>", ":cpfile<CR><C-G")
+
 	-- Go to pwd
 	vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -110,7 +116,7 @@ local map = function()
 		require("dap").run_last()
 	end)
 	-- Dismiss Noice message
-	vim.keymap.set("n", "<leader>dm", "<cmd>NoiceDismess<CR>", { desc = "Dismiss Noice Message" })
+	vim.keymap.set("n", "<leader>dm", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" })
 end
 
 map()
