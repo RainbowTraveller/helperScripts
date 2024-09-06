@@ -47,24 +47,8 @@ local map = function()
 	-- Make the file executable in the normal mode
 	vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-	-- Displays hover information about the symbol under the cursor in a floating window.
-	-- Callin it twice will jump into the floating window
-	vim.keymap.set("n", "K", vim.lsp.buf.hover)
-	-- List all symbols in the current buffer in a quickfix window
-	-- 	vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol) -- telescope version
-	-- List all symbols in the current workspace in a quickfix window
-	-- 	vim.keymap.set("n", "gws", vim.lsp.buf.workspace_symbol) -- telescope version
-	-- Execute the codelens under the cursor
-	vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run)
-	-- Displays signature information about the symbol under the cursor in a floating window
-	vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help)
-	vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-	vim.keymap.set("n", "<leader>ws", function()
-		require("metals").hover_worksheet()
-	end)
-
 	-- Diagnostic keymaps
-	--
+
 	-- all workspace diagnostics
 	vim.keymap.set("n", "<leader>aa", vim.diagnostic.setqflist)
 

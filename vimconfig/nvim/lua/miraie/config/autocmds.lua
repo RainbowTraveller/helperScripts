@@ -87,6 +87,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", buff)
 
 		-- Opens a popup that displays documentation about the word under your cursor
+		-- Displays hover information about the symbol under the cursor in a floating window.
+		-- Callin it twice will jump into the floating window
 		--  See `:help K` for why this keymap
 		map("K", vim.lsp.buf.hover, "Hover Documentation", buff)
 
@@ -94,6 +96,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		--  For example, in C this would take you to the header
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration", buff)
 
+		-- List all symbols in the current buffer in a quickfix window
+		-- map("gds", vim.lsp.buf.document_symbol) -- telescope version
+		-- List all symbols in the current workspace in a quickfix window
+		-- map("gws", vim.lsp.buf.workspace_symbol) -- telescope version
+
+		-- Execute the codelens under the cursor
+		map("<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens", buff)
+
+		-- Displays signature information about the symbol under the cursor in a floating window
+		map("<leader>sh", vim.lsp.buf.signature_help, "[S]ignature [H]elp", buff)
+		map("<leader>f", vim.lsp.buf.format, "[F]ormat")
+		map("<leader>hs", function()
+			require("metals").hover_worksheet()
+		end, "Hover [W]ork [S]heet", buff)
 		-- The following two autocommands are used to highlight references of the
 		-- word under your cursor when your cursor rests there for a little while.
 		--    See `:help CursorHold` for information about when this is executed
