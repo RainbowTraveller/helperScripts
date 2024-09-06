@@ -43,6 +43,13 @@ return {
 				vim.api.nvim_feedkeys(esc, "nx", false)
 				api.toggle.blockwise(vim.fn.visualmode())
 			end)
+
+			local ft = require("Comment.ft")
+
+			--1. Using method signature
+			-- Set only line comment or both
+			-- You can also chain the set calls
+			ft.set("json", "//%s")
 		end,
 	},
 }
