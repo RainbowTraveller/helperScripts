@@ -138,4 +138,11 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		end
 	end,
 })
+
+-- Delete trailing whitespaces before writing buffer
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*" },
+	command = [[%s/\s\+$//e]],
+})
+
 return {}

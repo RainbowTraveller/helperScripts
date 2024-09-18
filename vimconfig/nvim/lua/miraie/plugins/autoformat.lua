@@ -4,7 +4,7 @@ return {
 		local opts = {
 
 			format_on_save = {
-				timeout_ms = 500,
+				timeout_ms = 1500, -- Increasing timout for scalafmt to get sufficient time and not timeout
 				lsp_fallback = true,
 				lsp_format = "fallback",
 			},
