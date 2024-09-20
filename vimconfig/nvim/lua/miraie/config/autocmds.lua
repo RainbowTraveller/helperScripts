@@ -129,17 +129,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
-
+-- Open help in new tab instead of a part of current window
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	pattern = "*.txt",
 	callback = function()
 		if vim.o.filetype == "help" then
-			vim.cmd.wincmd("T")
+			vim.cmd("wincmd T")
 		end
 	end,
 })
 
--- Delete trailing whitespaces before writing buffer
+-- Delete Trailing whitespaces before writing the buffer
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*" },
 	command = [[%s/\s\+$//e]],
