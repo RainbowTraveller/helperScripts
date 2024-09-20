@@ -75,27 +75,27 @@ return {
 		local cmp = require("cmp")
 		local servers = {
 			-- clangd = {},
-			gopls = {
-				-- Require LSP config which we can use to attach gopls
-				-- Since we installed lspconfig and imported it, we can reach
-				-- gopls by lspconfig.gopls
-				-- we can then set it up using the setup and insert the needed configurations
-				lspconfig.gopls.setup({
-					capabilities = capabilities,
-					cmd = { "gopls", "serve" },
-					filetypes = { "go", "gomod" },
-					root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-					settings = {
-						gopls = {
-							analyses = {
-								unusedparams = true,
-							},
-							staticcheck = true,
-						},
-					},
-				}),
-			},
-
+			-- gopls = {
+			-- 	-- Require LSP config which we can use to attach gopls
+			-- 	-- Since we installed lspconfig and imported it, we can reach
+			-- 	-- gopls by lspconfig.gopls
+			-- 	-- we can then set it up using the setup and insert the needed configurations
+			-- 	lspconfig.gopls.setup({
+			-- 		capabilities = capabilities,
+			-- 		cmd = { "gopls", "serve" },
+			-- 		filetypes = { "go", "gomod" },
+			-- 		root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+			-- 		settings = {
+			-- 			gopls = {
+			-- 				analyses = {
+			-- 					unusedparams = true,
+			-- 				},
+			-- 				staticcheck = true,
+			-- 			},
+			-- 		},
+			-- 	}),
+			-- },
+			--
 			--csharp_ls = {
 			--	lspconfig.csharp_ls.setup({
 			--		capabilities = capabilities,
