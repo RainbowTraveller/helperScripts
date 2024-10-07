@@ -1,33 +1,67 @@
+add_newline = true
+# palette = "catppuccin_mocha"
+
 format = """
 [░▒▓](#a3aed2)\
 [  ](bg:#a3aed2 fg:#090c0c)\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
-$git_branch\
-$git_status\
-$git_state\
-[](fg:#394260 bg:#212736)\
-$scala\
-$golang\
-$java\
 [](fg:#212736 bg:#1d2230)\
-$time\
 [ ](fg:#1d2230)\
-\n$character"""
+$linebreak
+$character"""
+
+
+right_format = """
+ $git_branch\
+ $git_status\
+ $git_state\
+ $scala\
+ $golang\
+$java\
+$time
+$battery
+$os
+"""
+# Original
+# format = """
+# [░▒▓](#a3aed2)\
+# [  ](bg:#a3aed2 fg:#090c0c)\
+# [](bg:#769ff0 fg:#a3aed2)\
+# $directory\
+# [](fg:#769ff0 bg:#394260)\
+# $git_branch\
+# $git_status\
+# $git_state\
+# [](fg:#394260 bg:#212736)\
+# $scala\
+# $golang\
+#$java\
+#[](fg:#212736 bg:#1d2230)\
+#$time\
+#[ ](fg:#1d2230)\
+#\n$character"""
+
 
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
+style = "fg:bold #e3e5e5 bg:#769ff0"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
 read_only = '🔒'
+# Configuring the GIT repo
+# repo_root_style = "fg:red bold bg:white"
+# repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)"
 
 [directory.substitutions]
+"~" = "󰋜"
 "Documents" = "󰈙 "
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
+"amazingJava" = "Java"
+"aScala" = "Scala"
+"helperScripts" = "Scripts"
 
 [git_branch]
 symbol = ""
@@ -48,7 +82,14 @@ symbol = ""
 style = "bg:#212736"
 format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
+[lua]
+symbol = "󰢱"
+detect_files = ['.lua']
+
 [java]
+symbol = ""
+style = "red"
+format = "[${symbol} (${version})]($style)"
 detect_extensions = ['java', 'class', 'gradle', 'jar']
 detect_files = ['pom.xml',  'build.sbt', '.java-version']
 
@@ -56,6 +97,9 @@ detect_files = ['pom.xml',  'build.sbt', '.java-version']
 detect_extensions = ['sbt', 'scala']
 detect_files = ['.scalaenv', '.sbtenv', 'build.sbt']
 detect_folders = ['.metals']
+symbol = ''
+style = "fg:bold red"
+format = "[${symbol} (${version})]($style)"
 
 [golang]
 symbol = ""
@@ -91,3 +135,32 @@ powershell_indicator = '_'
 unknown_indicator = 'mystery shell'
 style = 'cyan bold'
 disabled = false
+
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
