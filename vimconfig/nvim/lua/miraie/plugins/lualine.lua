@@ -1,6 +1,6 @@
 local function get_lsp_name()
 	local msg = "LS Inactive"
-	local buf_clients = vim.lsp.get_active_clients()
+	local buf_clients = vim.lsp.get_clients()
 	if next(buf_clients) == nil then
 		if type(msg) == "boolean" or #msg == 0 then
 			return "LS Inactive"
@@ -44,22 +44,12 @@ return {
 			},
 
 			sections = {
-				lualine_x = {
-					get_lsp_name,
-					"selectioncount",
-					--"filetype",
-				},
-				lualine_y = {
-					"filetype",
-					"diagnostics",
-				},
-				lualine_z = {
-					"progress",
-				},
-				-- lualine_c = {
-				-- 	-- 'filename',
-				-- 	require('auto-session.lib').current_session_name
-				-- }
+				lualine_a = { "mode" },
+				lualine_b = { "branch", "diff", "diagnostics" },
+				lualine_c = { "filename" },
+				lualine_x = { "encoding", "fileformat", "filetype", get_lsp_name },
+				lualine_y = { "progress" },
+				lualine_z = { "location" },
 			},
 		})
 	end,
