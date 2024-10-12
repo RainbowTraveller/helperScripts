@@ -26,12 +26,21 @@ local map = function()
 
 	-- visual mode select and copy and again select and paste
 	-- the original word remains in the yanked register
+	-- Can be used for the clipboard paste as well
+	-- x indicates both visual and select mode
 	vim.keymap.set("x", "<leader>p", '"_dP')
 
+	-- CLIPBOARD PASTE
+	vim.keymap.set("n", "<leader>p", '"+p')
+
+	-- CLIPBOARD YANK
 	-- use this to yank into the system clipboard and not vim register
+	-- followed by motiuon keys e.g <leader>y + w will yank word and put it in the clipboard
 	vim.keymap.set("n", "<leader>y", '"+y')
+	-- Yank entire line into the clipboard
+	vim.keymap.set("n", "<leader>yy", '"+yy')
+	-- vim.keymap.set("n", "<leader>Y", '"+Y') Yank entire line, but previous one is more convenient
 	vim.keymap.set("v", "<leader>y", '"+y')
-	vim.keymap.set("n", "<leader>Y", '"+Y')
 
 	-- TODO: Need some investigation (Ctrl + a L)
 	vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizeri<CR>")

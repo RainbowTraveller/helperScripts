@@ -63,6 +63,7 @@ local options = function()
 	vim.opt.history = 1000 -- Store a ton of history (default is 20)
 	vim.opt.spell = true -- Spell checking on
 	vim.opt.hidden = true -- Allow buffer switching without saving
+	vim.opt.cursorline = true -- Hilight current cursorline
 
 	-- Functions
 	vim.keymap.set("n", "<leader><leader>", function()

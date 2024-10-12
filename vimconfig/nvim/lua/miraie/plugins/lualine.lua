@@ -24,8 +24,9 @@ return {
 	config = function()
 		require("lualine").setup({
 			options = {
-				-- theme = 'dracula',
-				-- theme = 'horizon',
+				-- theme = "dracula",
+				-- theme = "horizon",
+				-- theme = "moonfly",
 				icon_enabled = true,
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
@@ -42,7 +43,6 @@ return {
 					winbar = 1000,
 				},
 			},
-
 			sections = {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
