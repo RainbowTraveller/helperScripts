@@ -1,6 +1,11 @@
+# Add new line in the prompt
 add_newline = true
-# palette = "catppuccin_mocha"
+# Custom palette
+palette = "catppuccin_mocha"
 
+# This is main left hand prompt
+# contains custom colors and directory with
+# prompt character
 format = """
 [░▒▓](#a3aed2)\
 [  ](bg:#a3aed2 fg:#090c0c)\
@@ -12,12 +17,14 @@ $linebreak
 $character"""
 
 
+# Right hand side prompt which contains main other
+# details
 right_format = """
- $git_branch\
- $git_status\
- $git_state\
- $scala\
- $golang\
+$git_branch\
+$git_status\
+$git_state\
+$scala\
+$golang\
 $java\
 $time
 $battery
@@ -77,6 +84,13 @@ format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 commit_hash_length = 4
 tag_symbol = '🔖 '
 
+[python]
+symbol = ""
+python_binary = ['python', 'python2', 'python3']
+detect_extensions = ['py']
+
+
+
 [rust]
 symbol = ""
 style = "bg:#212736"
@@ -84,19 +98,21 @@ format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [lua]
 symbol = "󰢱"
-detect_files = ['.lua']
+detect_files = ['.lua', '.lua-version']
+detect_extensions = ['lua']
+detect_folders = ['lua']
 
 [java]
 symbol = ""
 style = "red"
 format = "[${symbol} (${version})]($style)"
-detect_extensions = ['java', 'class', 'gradle', 'jar']
-detect_files = ['pom.xml',  'build.sbt', '.java-version']
+#detect_extensions = ['java', 'class', 'gradle', 'jar']
+#detect_files = ['pom.xml',  'build.sbt', '.java-version']
 
 [scala]
-detect_extensions = ['sbt', 'scala']
-detect_files = ['.scalaenv', '.sbtenv', 'build.sbt']
-detect_folders = ['.metals']
+#detect_extensions = ['sbt', 'scala']
+#detect_files = ['.scalaenv', '.sbtenv', 'build.sbt']
+#detect_folders = ['.metals']
 symbol = ''
 style = "fg:bold red"
 format = "[${symbol} (${version})]($style)"
@@ -114,6 +130,8 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:#1d2230"
 format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+use_12hr = true
+utc_time_offset = '-8'
 
 [os]
 format = "on [($name )]($style)"
@@ -121,12 +139,12 @@ style = "bold blue"
 disabled = false
 
 [os.symbols]
-Macos = "🍎 "
+Macos = ""
 
 [battery]
-full_symbol = '🔋 '
-charging_symbol = '⚡️ '
-discharging_symbol = '💀 '
+# full_symbol = '🔋 '
+# charging_symbol = ' 󰂄 '
+# discharging_symbol = ' 󰂌 '
 
 
 [shell]
