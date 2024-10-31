@@ -9,7 +9,7 @@ return {
 
 		vim.keymap.set("n", "<leader>ha", function()
 			harpoon:list():add()
-		end)
+		end, { desc = "Add to Harpoon List" })
 		-- This will show only plain files in the harpoon and not preview
 		-- vim.keymap.set("n", "<C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
@@ -55,9 +55,20 @@ return {
 				:find()
 		end
 
+		local function clear_harpoon(harpoon_files)
+			for i, item in ipairs(harpoon_files.items) do
+				harpoon_files.items[i] = nil
+			end
+		end
+
 		-- Displays files added in the harpoon
 		vim.keymap.set("n", "<C-h>", function()
 			toggle_telescope(harpoon:list())
+		end, { desc = "Open harpoon window" })
+
+		-- Clear files added in the harpoon
+		vim.keymap.set("n", "<leader>ch", function()
+			clear_harpoon(harpoon:list())
 		end, { desc = "Open harpoon window" })
 	end,
 }
