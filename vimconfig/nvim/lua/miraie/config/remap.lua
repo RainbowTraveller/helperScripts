@@ -79,6 +79,20 @@ local map = function()
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
+	-- zen-mode toggle
+	vim.keymap.set("n", "<leader>zn", function()
+		require("zen-mode").toggle({
+			window = {
+				width = 0.85, -- width will be 85% of the editor width
+			},
+		})
+	end)
+
+	-- Twilight
+	vim.keymap.set("n", "<leader>tw", function()
+		require("twilight").toggle()
+	end)
+
 	-- Example mappings for usage with nvim-dap. If you don't use that, you can
 	-- skip these
 	vim.keymap.set("n", "<leader>dc", function()
