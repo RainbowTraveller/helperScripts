@@ -1,4 +1,9 @@
 return {
+	-- Config
+	require("miraie.config.autocmds"),
+	require("miraie.config.remap"),
+	require("miraie.config.options"),
+
 	-- Plugins
 	require("miraie.plugins.colors"),
 	require("miraie.plugins.telescope"),
@@ -19,7 +24,7 @@ return {
 	require("miraie.plugins.bufferline"),
 	require("miraie.plugins.dap"),
 	require("miraie.plugins.mason"),
-	require("miraie.plugins.alpha"),
+	-- require("miraie.plugins.alpha"),
 	require("miraie.plugins.snip"),
 	require("miraie.plugins.filetype"),
 	require("miraie.plugins.todo"),
@@ -27,9 +32,7 @@ return {
 	require("miraie.plugins.surround"),
 	require("miraie.plugins.neogit"),
 	require("miraie.plugins.lspconfig.lsp"),
-
-	-- Config
-	require("miraie.config.autocmds"),
-	require("miraie.config.remap"),
-	require("miraie.config.options"),
+	require("miraie.plugins.zen"),
+	require("miraie.plugins.twilight"),
+	require("miraie.plugins.markdown-preview"),
 }

@@ -114,6 +114,12 @@ return {
 			--	}),
 			--},
 
+			markdown_oxide = {
+				lspconfig.markdown_oxide.setup({
+					filetypes = { "markdown" },
+				}),
+			},
+
 			pyright = {
 				lspconfig.pyright.setup({
 					capabilities = capabilities,

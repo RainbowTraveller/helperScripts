@@ -14,9 +14,9 @@ return {
 			},
 
 			-- Conform will notify you when a formatter errors
-			notify_on_error = true,
+			-- notify_on_error = true,
 			-- Conform will notify you when no formatters are available for the buffer
-			notify_no_formatters = true,
+			-- notify_no_formatters = true,
 
 			formatters_by_ft = {
 				-- Use the "*" filetype to run formatters on all filetypes.

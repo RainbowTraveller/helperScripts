@@ -145,4 +145,19 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	command = [[%s/\s\+$//e]],
 })
 
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*.txt", "*.md", "*.markdown" },
+	callback = function()
+		vim.cmd([[
+		augroup pencil
+			autocmd!
+			autocmd FileType markdown,md call pencil#init()
+								\ | call lexical#init()
+								\ | call litecorrect#init()
+								\ | call textobj#quote#init()
+								\ | call textobj#sentence#init()
+		augroup END
+	]])
+	end,
+})
 return {}

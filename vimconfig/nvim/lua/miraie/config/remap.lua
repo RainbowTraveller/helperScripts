@@ -79,49 +79,6 @@ local map = function()
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-	-- zen-mode toggle
-	vim.keymap.set("n", "<leader>zn", function()
-		require("zen-mode").toggle({
-			window = {
-				width = 0.85, -- width will be 85% of the editor width
-			},
-		})
-	end)
-
-	-- Twilight
-	vim.keymap.set("n", "<leader>tw", function()
-		require("twilight").toggle()
-	end)
-
-	-- Example mappings for usage with nvim-dap. If you don't use that, you can
-	-- skip these
-	vim.keymap.set("n", "<leader>dc", function()
-		require("dap").continue()
-	end)
-
-	vim.keymap.set("n", "<leader>dr", function()
-		require("dap").repl.toggle()
-	end)
-
-	vim.keymap.set("n", "<leader>dK", function()
-		require("dap.ui.widgets").hover()
-	end)
-
-	vim.keymap.set("n", "<leader>dt", function()
-		require("dap").toggle_breakpoint()
-	end)
-
-	vim.keymap.set("n", "<leader>dso", function()
-		require("dap").step_over()
-	end)
-
-	vim.keymap.set("n", "<leader>dsi", function()
-		require("dap").step_into()
-	end)
-
-	vim.keymap.set("n", "<leader>dl", function()
-		require("dap").run_last()
-	end)
 	-- Dismiss Noice message
 	vim.keymap.set("n", "<leader>dm", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" })
 end
