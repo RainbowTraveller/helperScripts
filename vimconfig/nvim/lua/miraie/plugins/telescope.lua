@@ -96,8 +96,12 @@ return {
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 
 		-- Searches for the string under the cursor in your current working directory
+		-- vim.keymap.set("n", "<leader>sw", function()
+		-- 	builtin.grep_string({ search = vim.fn.input(" Grep > ") })
+		-- end, { desc = "[S]earch current [W]ord" })
+
 		vim.keymap.set("n", "<leader>sw", function()
-			builtin.grep_string({ search = vim.fn.input(" Grep > ") })
+			builtin.grep_string()
 		end, { desc = "[S]earch current [W]ord" })
 
 		--  Search in the open buffers ( needs ripgrep to work )
