@@ -1,29 +1,51 @@
-#=== start of automatically maintained lines (do not delete)===
-# .bashrc, sourced by interactive non-login shells (also called by .bash_profile)
-#export PATH=/sbin:/usr/sbin:/bin:/usr/bin:/home/y/bin:/usr/local/bin:/usr/X11R6/bin
-# per-user custom comands go here...
 
 
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/local/sbin:/usr/share:/usr/texbin:/usr/local/go/bin
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
-export HADOOP_PREFIX=/Users/milind/WFMilind/opensource/hadoop/hadoop-2.7.0/
-export M2_HOME=/usr/local/apache-maven
-export PATH=$PATH:$M2_HOME/bin
-export JUNIT_HOME="$HOME/junit"
-export PATH="$PATH:$JUNIT_HOME"
-export CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit-4.12.jar:$JUNIT_HOME/hamcrest-core-1.3.jar"
-export ECLIPSE_HOME=/Users/milind/Applications/eclipse/Eclipse.app/Contents/Eclipse
-
-#Configuring the command prompt
-#PS1='[\e[0;31m\u\e[m@\e[1;32m\h\e[m:\e[1;34m\w\e[m\$]\n'
+#export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/local/sbin:/usr/share:/usr/texbin:/usr/local/go/bin
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
+#export HADOOP_PREFIX=/Users/milind/WFMilind/opensource/hadoop/hadoop-2.7.0/
+#export M2_HOME=/usr/local/apache-maven
+#export PATH=$PATH:$M2_HOME/bin
+#export JUNIT_HOME="$HOME/junit"
+#export PATH="$PATH:$JUNIT_HOME"
+#export CLASSPATH="$CLASSPATH:$JUNIT_HOME/junit-4.12.jar:$JUNIT_HOME/hamcrest-core-1.3.jar"
 
 
-export CLICOLOR=1
-#export LSCOLORS=GxFxCxDxBxegedabagaced
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
 #ls command alias
-export LSCOLORS=ExFxBxDxCxGxHxCGagacad
+# some more ls aliases
+#+
+#The ls -F command in Linux is used to list directory contents with a special character at the end of each name to indicate the type of file. Here's a quick breakdown:
+#
+#Directories: A / is appended.
+#Executable files: A * is appended.
+#Symbolic links: A @ is appended.
+#Sockets: An = is appended.
+#Pipes: A | is appended.
+alias ll='ls -lF' #  list format and special char to indicate type directory, file, executable or pipe
+alias la='ls -AlF' # do not list . and ..
+alias lA='ls -alF' # all
+alias vim='nvim'
+alias vimdiff='nvim -d'
+alias gch='gch'
+alias gdb='get_deleted_branches'
+alias gpr='git_pull_rebase'
+alias grm='git_rebase_main'
+alias work='cd ~/work/CalculationProcessor/'
 alias ll="ls -lhG"
 alias la="ls -ahlG"
 #alias ll="ls -lh --color"
@@ -31,8 +53,8 @@ alias la="ls -ahlG"
 alias grep="grep --color"
 #alias diff="git diff"
 alias tmux="TERM=xterm-256color tmux"
-alias coding="bash ~/PMilind/repo/helperScripts/tmux/Coding"
-alias vim="/usr/local/bin/vim"
+#alias coding="bash ~/PMilind/repo/helperScripts/tmux/Coding"
+#alias vim="/usr/local/bin/vim"
 
 alias coding="ssh -t dev 'tmux a -t Coding'"
 alias pk="ssh -t dev 'tmux a -t ProdKafka'"
@@ -40,53 +62,19 @@ alias pst="ssh -t dev 'tmux a -t ProdStorm'"
 alias pom="ssh -t dev 'tmux a -t OfflineMongo'"
 alias pmm="ssh -t dev 'tmux a -t ProdMainMongo'"
 alias qe="ssh -t dev 'tmux a -t QA-ENV'"
-alias eclim="$ECLIPSE_HOME/eclimd"
 alias dev="cd ~/PMilind/tech/codebase/"
 
 # Starting and Stopping Tomcat
-alias stc="/Library/Tomcat/bin/startup.sh"
-alias ktc="/Library/Tomcat/bin/shutdown.sh"
+#alias stc="/Library/Tomcat/bin/startup.sh"
+#alias ktc="/Library/Tomcat/bin/shutdown.sh"
 
 function tabname {
     printf "\e]1;$1\a"
 }
+
 function winname {
     printf "\e]2;$1\a"
 }
-#REFRENCE for LSCOLORS
-# a     black
-# b     red
-# c     green
-# d     brown
-# e     blue
-# f     magenta
-# g     cyan
-# h     light grey
-# A     bold black, usually shows up as dark grey
-# B     bold red
-# C     bold green
-# D     bold brown, usually shows up as yellow
-# E     bold blue
-# F     bold magenta
-# G     bold cyan
-# H     bold light grey; looks like bright white
-# x     default foreground or background
-#
-# Note that the above are standard ANSI colors.  The actual display may differ depending on the color capabilities of the terminal in use.
-#
-# The order of the attributes are as follows:
-#
-# 1.   directory
-# 2.   symbolic link
-# 3.   socket
-# 4.   pipe
-# 5.   executable
-# 6.   block special
-# 7.   character special
-# 8.   executable with setuid bit set
-# 9.   executable with setgid bit set
-# 10.  directory writable to others, with sticky bit
-# 11.  directory writable to others, without sticky bit
 
 # FZF config
 
@@ -106,49 +94,54 @@ source "/Users/milind/.fzf/shell/key-bindings.bash"
 
 # Setting fd as the default source for fzf
 #Only if fd is successfully installed otherwise comment this line
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FD_OPTIONS="--follow --exclude .git --exclude node_modules"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_CTRL_R_OPTS='--sort'
-export FZF_DEFAULT_OPTS="--color=fg+:#000000,bg+:#C0C0C0,hl:#00BFFF,hl+:#DC143C,info:27 --height 40% --border --preview  '(coderay {} || cat {}) 2> /dev/null | head -500'"
+# Open in tmux popup if on tmux, otherwise use --height mode
+export FZF_DEFAULT_OPTS="--no-mouse --height 40% --multi --tmux center,40% --layout reverse \
+    --border=bold --margin=1 --padding=1  --prompt 'Files >> '  --pointer '>' \
+    --walker-skip .git,node_modules,target \
+    --header 'CTRL-T: Switch between Files/Directories' \
+    --bind 'ctrl-t:transform:[[ ! \$FZF_PROMPT =~ Files ]] &&
+    	  echo \"change-prompt(Files >> )+reload(fd --type file)\" ||
+    	  echo \"change-prompt(Directories >> )+reload(fd --type directory)\"'
+	  --preview ' [[  \$(file --mime {}) =~ binary  &&  ! \$(file --mime {}) =~ directory ]] &&
+	      echo {} is a binary file ||
+	      ([[  \$FZF_PROMPT =~ Files  ]] && bat --color=always {} ||
+	      [[  \$(file --mime {}) =~ directory  ]] && tree -C {})'"
+
+export FZF_DEFAULT_COMMAND="git ls-files --cached --others --exclude-standard | fd --type file --type l $FD_OPTIONS"
+export FZF_CTRL_T_COMMAND="fd --type file"
 
 
-#if [[ ! "$PATH" == */Library/Frameworks/Python.framework/Versions/3.7/bin* ]]; then
-#  export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.7/bin"
-#fi
-powerline-daemon -q
-export POWERLINE_COMMAND=powerline
-export POWERLINE_CONFIG_COMMAND=powerline-config
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-
-. /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
-
-
-#for zsh
-export FZF_BASE="$HOME/.fzf"
-plugins=(git
-     zsh-syntax-highlighting
-     fzf)
-
-source $ZSH/oh-my-zsh.sh # after installing oh-my-zsh
-alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
-_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
-
-gcop() {
-    git log \
-        --reverse \
-        --color=always  \
-        --format="%C(cyan)%h %C(blue)%ar%C(auto)%d \
-        %C(yellow)%s%+b %C(black)%ae"  "$@"  |
-        fzf -i -e +s \
-        --tiebreak=index \
-        --no-multi \
-        --ansi \
-        --border \
-        --preview  "$_viewGitLogLine" \
-        --header "enter : view C-c : copy hash" \
-        --bind "enter:execute:$_viewGitLogLine | less -R" \
-        --bind "ctrl-c:execute:$_gitLogLineToHash |
-                xclip -r -selection clipboard"
+# git hacks
+# Git checkout
+gch() {
+echo "git checkout \$(git branch | fzf| tr -d ‘[:space:]’)"
+ git checkout $(git branch | fzf| tr -d ‘[:space:]’)
 }
+
+# List the deleted branched
+get_deleted_branches() {
+    # git fetch --all -p; git branch -vv | grep ": gone]" | awk '{ print '1 }'
+     echo "git branch -vv | grep ": gone]" | awk '{ print \$1 }'"
+     git branch -vv | grep ": gone]" | awk '{ print $1 }'
+}
+
+git_pull_rebase() {
+    echo "git pull --rebase"
+    git pull --rebase
+}
+
+# Rebase on Main branch
+git_rebase_main() {
+    echo "git rebase main"
+    git rebase main
+}
+
+# export PATH="/Docker/host/bin:/bin:/home/maverick/.fzf/bin:/home/maverick/.local/bin:/home/maverick/.local/share/coursier/bin:/mnt/c/.tools/.npm-global:/mnt/c/.tools/dotnet:/mnt/c/ES.DevProd/SpringBoard/SBCli/SpringBoardCli:/mnt/c/ES.DevProd/VMSetupScripts:/mnt/c/Program Files (x86)/Microsoft SDKs/Azure/CLI2/wbin:/mnt/c/Program Files (x86)/Microsoft SQL Server/160/DTS/Binn/:/mnt/c/Program Files/Azure Dev CLI:/mnt/c/Program Files/GVFS:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/GitHub CLI/:/mnt/c/Program Files/Microsoft Dev Box Agent/Scripts:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/Neovim/bin:/mnt/c/Program Files/PowerShell/7/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/nodejs:/mnt/c/Program Files/nodejs/:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/ProgramData/global-npm:/mnt/c/Users/milindvaidya/AppData/Local/Coursier/cache/arc/https/github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.23%252B9/OpenJDK11U-jdk_x64_windows_hotspot_11.0.23_9.zip/jdk-11.0.23+9/bin:/mnt/c/Users/milindvaidya/AppData/Local/Coursier/data/bin:/mnt/c/Users/milindvaidya/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/milindvaidya/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/milindvaidya/AppData/Local/Programs/oh-my-posh/bin:/mnt/c/Users/vmadmin/AppData/Local/Microsoft/WindowsApps:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/system32:/mnt/c/Windows:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/system32:/mnt/c/Windows/system32/config/systemprofile/AppData/Local/Microsoft/WindowsApps:/mnt/c/nvm:/opt/nvim/:/opt/spark/bin:/sbin:/snap/bin:/usr/bin:/usr/games:/usr/lib/wsl/lib:/usr/local/bin:/usr/local/games:/usr/local/sbin:/usr/sbin"
+SPARK_HOME=/opt/spark
+export PATH=$PATH:$SPARK_HOME/bin
+
+eval "$(starship init bash)"
+
