@@ -36,9 +36,11 @@ shopt -s checkwinsize
 #Symbolic links: A @ is appended.
 #Sockets: An = is appended.
 #Pipes: A | is appended.
-alias ll='ls -lF' #  list format and special char to indicate type directory, file, executable or pipe
-alias la='ls -AlF' # do not list . and ..
-alias lA='ls -alF' # all
+# h for human redable sizes
+# G for color use
+alias ll='ls -lhGF' #  list format and special char to indicate type directory, file, executable or pipe
+alias la='ls -AlhGF' # do not list . and ..
+alias lA='ls -alhGF' # all
 alias vim='nvim'
 alias vimdiff='nvim -d'
 alias gch='gch'
@@ -46,8 +48,6 @@ alias gdb='get_deleted_branches'
 alias gpr='git_pull_rebase'
 alias grm='git_rebase_main'
 alias work='cd ~/work/CalculationProcessor/'
-alias ll="ls -lhG"
-alias la="ls -ahlG"
 #alias ll="ls -lh --color"
 #alias la="ls -ahl --color"
 alias grep="grep --color"
