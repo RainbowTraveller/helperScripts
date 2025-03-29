@@ -113,8 +113,11 @@ return {
 			callback = function(args)
 				local client = vim.lsp.get_client_by_id(args.data.client_id)
 				if client and client.name == "jdtls" then
+					-- Setup keymaps for jdtls
 					local wk = require("which-key")
-					wk.register({
+
+					-- Normal mode keymaps
+					wk.add({
 						["<leader>cx"] = { name = "+extract" },
 						["<leader>cxv"] = { require("jdtls").extract_variable_all, "Extract Variable" },
 						["<leader>cxc"] = { require("jdtls").extract_constant, "Extract Constant" },
@@ -122,7 +125,9 @@ return {
 						["gS"] = { require("jdtls.tests").goto_subjects, "Goto Subjects" },
 						["<leader>co"] = { require("jdtls").organize_imports, "Organize Imports" },
 					}, { mode = "n", buffer = args.buf })
-					wk.register({
+
+					-- Visual mode keymaps
+					wk.add({
 						["<leader>c"] = { name = "+code" },
 						["<leader>cx"] = { name = "+extract" },
 						["<leader>cxm"] = {
@@ -147,7 +152,7 @@ return {
 						-- Java Test require Java debugger to work
 						if opts.test and mason_registry.is_installed("java-test") then
 							-- custom keymaps for Java test runner (not yet compatible with neotest)
-							wk.register({
+							wk.add({
 								["<leader>t"] = { name = "+test" },
 								["<leader>tt"] = { require("jdtls.dap").test_class, "Run All Test" },
 								["<leader>tr"] = { require("jdtls.dap").test_nearest_method, "Run Nearest Test" },
