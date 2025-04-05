@@ -19,12 +19,11 @@ end
 --  The function handles the event TextYankPost with call back
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
-	-- 		group = vim.api.nvim_create_augroup("miraie-highlight-yank", { clear = true }),
 	group = augroup("hilight-yank"),
 	callback = function()
 		vim.highlight.on_yank({
-			higroup = "IncSearch",
-			timeout = 500,
+			higroup = "Substitute",
+			timeout = 800,
 			on_macro = true,
 		})
 	end,
@@ -164,6 +163,44 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 								\ | call textobj#sentence#init()
 		augroup END
 	]])
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "LspAttach" }, {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.name == "jdtls" then
+			local wk = require("which-key")
+			wk.register({
+				["<leader>cx"] = { name = "+extract" },
+				["<leader>cxv"] = { require("jdtls").extract_variable_all, "Extract Variable" },
+				["<leader>cxc"] = { require("jdtls").extract_constant, "Extract Constant" },
+				["gs"] = { require("jdtls").super_implementation, "Goto Super" },
+				["gS"] = { require("jdtls.tests").goto_subjects, "Goto Subjects" },
+				["<leader>co"] = { require("jdtls").organize_imports, "Organize Imports" },
+			}, { mode = "n", buffer = args.buf })
+			wk.register({
+				["<leader>c"] = { name = "+code" },
+				["<leader>cx"] = { name = "+extract" },
+				["<leader>cxm"] = {
+					[[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
+					"Extract Method",
+				},
+				["<leader>cxv"] = {
+					[[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]],
+					"Extract Variable",
+				},
+				["<leader>cxc"] = {
+					[[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]],
+					"Extract Constant",
+				},
+			}, { mode = "v", buffer = args.buf })
+
+			-- User can set additional keymaps in opts.on_attach
+			if opts.on_attach then
+				opts.on_attach(args)
+			end
+		end
 	end,
 })
 return {}
