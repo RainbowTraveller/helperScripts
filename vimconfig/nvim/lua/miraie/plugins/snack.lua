@@ -16,9 +16,16 @@ return {
 			-- col = 70, -- dashboard position. nil for center
 			preset = {
 				header = [[
+			  __
+	     ___     ___    ___   __  __ /\_\    ___ ___
+	    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\
+	   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \
+	   \ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
+	    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/
 
-	  __				   __
-		___ ___	 /\_\   _  _	 __   /\_\    ___
+
+__				   __
+	___ ___	 /\_\   _  _	 __   /\_\    ___
 		   / __` __`\\/\ \ /\`'__\ /'__`\ \/\ \  / __`\
 		  /\ \/\ \/\ \\ \ \\ \ \_//\ \L\.\_\ \ \/\  __/
 		  \ \_\ \_\ \_\\ \_\\ \_\ \ \__/.\_\\ \_\ \____\
@@ -45,7 +52,7 @@ return {
 				{
 					pane = 2,
 					section = "terminal",
-					cmd = "ascii-image-converter ~/Downloads/MiloAvatar.JPG -C -b --dither",
+					cmd = "ascii-image-converter ~/Downloads/Penguin.jpg -C -b --dither",
 					random = 10,
 					indent = 4,
 					height = 40,
