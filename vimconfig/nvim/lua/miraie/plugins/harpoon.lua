@@ -5,7 +5,7 @@ return {
 	config = function()
 		local harpoon = require("harpoon")
 		local conf = require("telescope.config").values
-		harpoon.setup()
+		harpoon.setup(config)
 
 		vim.keymap.set("n", "<leader>ha", function()
 			harpoon:list():add()
@@ -69,6 +69,6 @@ return {
 		-- Clear files added in the harpoon
 		vim.keymap.set("n", "<leader>ch", function()
 			clear_harpoon(harpoon:list())
-		end, { desc = "Open harpoon window" })
+		end, { desc = "Clear harpoon window" })
 	end,
 }
