@@ -1,0 +1,166 @@
+# Add new line in the prompt
+add_newline = true
+# Custom palette
+palette = "catppuccin_mocha"
+
+# This is main left hand prompt
+# contains custom colors and directory with
+# prompt character
+format = """
+[░▒▓](#a3aed2)\
+[  ](bg:#a3aed2 fg:#090c0c)\
+[](fg:#a3aed2)\
+$directory\
+[ ](fg:#769ff0)\
+$linebreak
+$character"""
+
+# [](bg:#769ff0 fg:#a3aed2)\
+# [](fg:#212736 bg:#1d2230)\
+
+# Right hand side prompt which contains main other details
+right_format = """
+$git_branch\
+$git_status\
+$git_state\
+$scala\
+$golang\
+$java\
+$time\
+$battery\
+$os
+"""
+[directory]
+style = "fg:bold #e3e5e5 bg:#769ff0"
+format = "[ $path ]($style)"
+truncation_length = 4
+truncation_symbol = "…/"
+read_only = '🔒'
+# Configuring the GIT repo
+repo_root_style = "fg:green bold"
+repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)"
+
+[directory.substitutions]
+"~" = "󰋜"
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+"amazingJava" = "Java"
+"aScala" = "Scala"
+"helperScripts" = "Scripts"
+
+[git_branch]
+symbol = ""
+# style = "bg:#394260"
+style = "bold yellow"
+#format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+format = '[ $symbol $branch]($style)'
+
+[git_status]
+style = "bg:#394260"
+format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = '🔖 '
+
+[python]
+symbol = ""
+python_binary = ['python', 'python2', 'python3']
+detect_extensions = ['py']
+
+[rust]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[lua]
+symbol = "󰢱"
+detect_files = ['.lua', '.lua-version']
+detect_extensions = ['lua']
+detect_folders = ['lua']
+
+[java]
+symbol = ""
+style = "red"
+format = "[${symbol} (${version})]($style)"
+#detect_extensions = ['java', 'class', 'gradle', 'jar']
+#detect_files = ['pom.xml',  'build.sbt', '.java-version']
+
+[scala]
+#detect_extensions = ['sbt', 'scala']
+#detect_files = ['.scalaenv', '.sbtenv', 'build.sbt']
+#detect_folders = ['.metals']
+symbol = ''
+style = "fg:bold red"
+format = "[${symbol} (${version})]($style)"
+
+[golang]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+detect_extensions = ['go']
+detect_files = ['go.mod', 'go.sum', 'go.work', 'glide.yaml', 'Gopkg.yml', 'Gopkg.lock', '.go-version']
+detect_folders = ['Godeps']
+
+[nodejs]
+format = 'via [🤖 $version](bold green) '
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+use_12hr = true
+utc_time_offset = '-7'
+
+[os]
+format = "on [($name )]($style)"
+style = "bold blue"
+disabled = false
+
+[os.symbols]
+Macos = ""
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = ' 󰂄 '
+discharging_symbol = ' 󰂌 '
+
+
+[shell]
+fish_indicator = '󰈺 '
+powershell_indicator = '_'
+unknown_indicator = 'mystery shell'
+style = 'cyan bold'
+disabled = false
+
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
