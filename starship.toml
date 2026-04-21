@@ -131,7 +131,7 @@ time_format = "%R" # Hour:Minute Format
 style = "bg:#1d2230"
 format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 use_12hr = true
-utc_time_offset = '-8'
+utc_time_offset = '-7'
 
 [os]
 format = "on [($name )]($style)"
