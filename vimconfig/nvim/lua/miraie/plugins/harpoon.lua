@@ -5,7 +5,7 @@ return {
 	config = function()
 		local harpoon = require("harpoon")
 		local conf = require("telescope.config").values
-		harpoon.setup(config)
+		harpoon.setup()
 
 		vim.keymap.set("n", "<leader>ha", function()
 			harpoon:list():add()
