@@ -45,7 +45,14 @@ return {
 
 		-- Project / Git file discovery
 		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-		vim.keymap.set("n", "<leader>sg", builtin.git_files, { desc = "[S]earch [G]it Files" })
+		vim.keymap.set("n", "<leader>sg", function()
+			local is_git_repo = vim.fn.systemlist("git rev-parse --is-inside-work-tree")[1] == "true"
+			if is_git_repo then
+				builtin.git_files()
+			else
+				vim.notify("⚠ Not a git repository", vim.log.levels.WARN)
+			end
+		end, { desc = "[S]earch [G]it Files" })
 		vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "[ ] Find existing buffers" })
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 
