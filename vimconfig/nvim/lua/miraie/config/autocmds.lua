@@ -55,23 +55,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Jump to the definition of the word under your cursor.
 		--  This is where a variable was first declared, or where a function is defined, etc.
 		--  To jump back, press <C-t>.
-		map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition", buff)
+		map("gd", function() Snacks.picker.lsp_definitions() end, "[G]oto [D]efinition", buff)
 
 		-- Find references for the word under your cursor.
-		map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences", buff)
+		map("gr", function() Snacks.picker.lsp_references() end, "[G]oto [R]eferences", buff)
 
 		-- Jump to the implementation of the word under your cursor.
 		--  Useful when your language has ways of declaring types without an actual implementation.
-		map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation", buff)
+		map("gI", function() Snacks.picker.lsp_implementations() end, "[G]oto [I]mplementation", buff)
 
 		-- Jump to the type of the word under your cursor.
 		--  Useful when you're not sure what type a variable is and you want to see
 		--  the definition of its *type*, not where it was *defined*.
-		map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition", buff)
+		map("<leader>D", function() Snacks.picker.lsp_type_definitions() end, "Type [D]efinition", buff)
 
 		-- Fuzzy find all the symbols in your current document.
 		--  Symbols are things like variables, functions, types, etc.
-		map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols", buff)
+		map("<leader>ds", function() Snacks.picker.lsp_symbols() end, "[D]ocument [S]ymbols", buff)
 
 		-- Fuzzy find all the symbols in your current workspace
 		--  Similar to document symbols, except searches over your whole project.

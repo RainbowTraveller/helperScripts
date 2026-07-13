@@ -25,19 +25,19 @@ return {
 					["ac"] = { query = "@condition.outer", desc = "Select outer part of condition" },
 					["ic"] = { query = "@condition.inner", desc = "Select inner part of condition" },
 
-					-- loop
+					-- Loop
 					["al"] = { query = "@loop.outer", desc = "Select outer part of loop" },
 					["il"] = { query = "@loop.inner", desc = "Select inner part of loop" },
 
-					-- call to a function
+					-- Call to a function
 					["af"] = { query = "@call.outer", desc = "Select outer part of call to a function" },
 					["if"] = { query = "@call.inner", desc = "Select inner part of call to a function" },
 
-					-- function definition
+					-- Function definition
 					["am"] = { query = "@function.outer", desc = "Select outer part of function" },
 					["im"] = { query = "@function.inner", desc = "Select inner part of function" },
 
-					-- class
+					-- Class
 					["as"] = { query = "@class.outer", desc = "Select outer part of class" },
 					["is"] = { query = "@class.inner", desc = "Select inner part of class" },
 				},
@@ -57,7 +57,7 @@ return {
 
 			move = {
 				enable = true,
-				set_jumps = true,
+				set_jumps = true, -- Add jumps to the vim jumplist (<C-o> and <C-i>)
 				goto_next_start = {
 					["]f"] = { query = "@call.outer", desc = "Next function call start" },
 					["]m"] = { query = "@function.outer", desc = "Next function start" },

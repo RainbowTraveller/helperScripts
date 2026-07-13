@@ -61,6 +61,7 @@ return {
 		-- Importing utility libraries used to assist configuration rules below.
 		local util = require("lspconfig/util")
 		local cmp = require("cmp")
+		local luasnip = require("luasnip")
 
 		-- SECTION: DEFINING TARGET SERVER OPTIONS (DATA ONLY)
 		-- This is a clean Lua dictionary defining your personalized preferences for specific language servers.
@@ -116,6 +117,55 @@ return {
 			},
 		}
 
+		-- SECTION: MASON AND COMPLEMENTARY AUTOMATED INSTALLATION CONFIGURATION
+		-- This sequence ensures that all of your declared servers actually exist as binaries on your machine.
+
+		-- Initializes Mason's low-level directory variables and prepares internal tracking configurations.
+		require("mason").setup()
+
+		-- Pulls the text keys directly out of your `servers` data map to build an index array of what packages to fetch.
+		local ensure_installed = vim.tbl_keys(servers or {})
+
+		-- Extends the automated installation array to include binaries that aren't strict language servers,
+		-- but are crucial complementary developer utilities (like standalone syntax formatters).
+		vim.list_extend(ensure_installed, {
+			"stylua", -- External CLI tool wrapper used to aggressively format and pretty-print raw Lua files.
+		})
+
+		-- Hands the compiled list over to `mason-tool-installer`. It compares what is written against what is
+		-- physically saved on your hard drive, safely downloading anything missing in the background.
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+		cmp.setup({
+			snippet = {
+				expand = function(args)
+					luasnip.lsp_expand(args.body)
+				end,
+			},
+			mapping = cmp.mapping.preset.insert({
+				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+				["<C-f>"] = cmp.mapping.scroll_docs(4),
+				["<C-Space>"] = cmp.mapping.complete(),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					elseif luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+			}),
+			sources = cmp.config.sources({
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+			}, {
+				{ name = "buffer" },
+				{ name = "path" },
+			}),
+		})
+
 		-- SECTION: COMMAND LINE INTERFACE (CMDLINE) AUTOCOMPLETE
 		-- These modules attach your autocomplete window directly to Neovim UI interaction lanes outside text files.
 
@@ -159,29 +209,5 @@ return {
 			-- the underlying binary and hooks it to your editing screen buffer.
 			vim.lsp.enable(server_name)
 		end
-
-		-- SECTION: MASON AND COMPLEMENTARY AUTOMATED INSTALLATION CONFIGURATION
-		-- This sequence ensures that all of your declared servers actually exist as binaries on your machine.
-
-		-- Initializes Mason's low-level directory variables and prepares internal tracking configurations.
-		require("mason").setup()
-
-		-- Pulls the text keys directly out of your `servers` data map to build an index array of what packages to fetch.
-		local ensure_installed = vim.tbl_keys(servers or {})
-
-		-- Extends the automated installation array to include binaries that aren't strict language servers,
-		-- but are crucial complementary developer utilities (like standalone syntax formatters).
-		vim.list_extend(ensure_installed, {
-			"stylua", -- External CLI tool wrapper used to aggressively format and pretty-print raw Lua files.
-		})
-
-		-- Hands the compiled list over to `mason-tool-installer`. It compares what is written against what is
-		-- physically saved on your hard drive, safely downloading anything missing in the background.
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-		-- Ingests our keys to map native lspconfig settings into Mason system handlers safely.
-		require("mason-lspconfig").setup({
-			ensure_installed = vim.tbl_keys(servers),
-		})
 	end,
 }

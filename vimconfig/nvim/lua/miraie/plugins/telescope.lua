@@ -1,7 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	event = "VimEnter",
-	branch = "0.1.x",
+	lazy = true,
 
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -19,32 +18,27 @@ return {
 
 	config = function()
 		require("telescope").setup({
-			extensions = {
-				["fzf"] = {
-					fuzzy = true,
-					override_generic_sorter = true,
-					override_file_sorter = true,
-					case_mode = "smart_case",
-				},
-				["ui-select"] = {
-					require("telescope.themes").get_dropdown({}),
+			defaults = {
+				-- Disable treesitter highlighting in the previewer to avoid ft_lang_errors
+				preview = {
+					treesitter = false,
 				},
 			},
+			extensions = {},
 		})
 
 		-- Safely enable installed telescope extensions
-		require("telescope").load_extension("fzf")
-		require("telescope").load_extension("ui-select")
-		require("telescope").load_extension("dap")
+		pcall(require("telescope").load_extension, "fzf")
+		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "dap")
+		pcall(require("telescope").load_extension, "noice")
 
-		-- UNCOMMENT THESE ONLY IF METALS AND NOICE ARE INSTALLED ELSEWHERE:
-		-- require("telescope").load_extension("metals")
-		-- require("telescope").load_extension("noice")
-
-		local builtin = require("telescope.builtin")
+		--[[ local builtin = require("telescope.builtin")
 
 		-- Project / Git file discovery
-		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
+		vim.keymap.set("n", "<leader>sf", function()
+			builtin.find_files({ prompt_title = "List files in your current working directory" })
+		end, { desc = "[S]earch [F]iles" })
 		vim.keymap.set("n", "<leader>sg", function()
 			local is_git_repo = vim.fn.systemlist("git rev-parse --is-inside-work-tree")[1] == "true"
 			if is_git_repo then
@@ -58,12 +52,18 @@ return {
 
 		-- Grep and word searches
 		vim.keymap.set("n", "<leader>sw", function()
-			builtin.grep_string()
+			builtin.grep_string({
+				prompt_title = "Search string iunder cursor in your current working directory...",
+				grep_open_files = true,
+			})
 		end, { desc = "[S]earch current [W]ord" })
 
 		vim.keymap.set("n", "<leader>sl", function()
-			builtin.live_grep({ prompt_title = "Find string in open buffers...", grep_open_files = true })
-		end, { desc = "[S]earch by [G]rep" })
+			builtin.live_grep({
+				prompt_title = "Search as you type a string in your current working directory...",
+				grep_open_files = true,
+			})
+		end, { desc = "[S]earch by [L]ive grep" })
 
 		-- Telescope internal tracking mappings
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
@@ -96,5 +96,6 @@ return {
 		-- vim.keymap.set("n", "<leader>sm", function()
 		-- 	require("telescope").extensions.metals.commands()
 		-- end, { desc = "[S]earch [m] in metal commands" })
+		-- ]]
 	end,
 }

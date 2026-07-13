@@ -53,6 +53,10 @@ require("lazy").setup("miraie.plugins", {
 			},
 		},
 	},
+	rocks = {
+		enabled = false,
+		hererocks = false,
+	},
 }) -- set up lazy and then point to plugins directory
 
 -- Setting after the colorscheme setup to override settings by colorscheme

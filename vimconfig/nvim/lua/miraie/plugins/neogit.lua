@@ -1,5 +1,6 @@
 return {
 	"NeogitOrg/neogit",
+	enabled = false, -- set to false to disable this plugin
 	dependencies = {
 		"nvim-lua/plenary.nvim", -- required
 		"sindrets/diffview.nvim", -- optional - Diff integration
@@ -7,7 +8,7 @@ return {
 		"nvim-telescope/telescope.nvim", -- optional
 	},
 	config = function()
-		require("neogit").setup({})
+		--[[ require("neogit").setup({})
 		local neogit = require("neogit")
 		vim.keymap.set("n", "<leader>go", function()
 			neogit.open({ kind = "vsplit" })
@@ -24,6 +25,6 @@ return {
 		vim.keymap.set("n", "<leader>gr", function()
 			neogit.rebase()
 		end)
-		vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { silent = true, noremap = true })
+		vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { silent = true, noremap = true }) ]]
 	end,
 }

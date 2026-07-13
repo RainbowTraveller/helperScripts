@@ -5,18 +5,11 @@ return {
 	---@type snacks.Config
 	opts = {
 		dashboard = {
-			---@class snacks.dashboard.Config
-			---@field enabled? boolean
-			---@field sections snacks.dashboard.Section
-			---@field formats table<string, snacks.dashboard.Text|fun(item:snacks.dashboard.Item, ctx:snacks.dashboard.Format.ctx):snacks.dashboard.Text>
-
 			enabled = true,
 			width = 50,
-			-- row = 10, -- dashboard position. nil for center
-			-- col = 70, -- dashboard position. nil for center
 			preset = {
 				header = [[
-			  __
+			      __
 	     ___     ___    ___   __  __ /\_\    ___ ___
 	    / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\
 	   /\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \
@@ -24,8 +17,8 @@ return {
 	    \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/
 
 
-__				   __
-	___ ___	 /\_\   _  _	 __   /\_\    ___
+		  __		           __
+		    ___ __   /\_\   _  _     __   /\_\    ___
 		   / __` __`\\/\ \ /\`'__\ /'__`\ \/\ \  / __`\
 		  /\ \/\ \/\ \\ \ \\ \ \_//\ \L\.\_\ \ \/\  __/
 		  \ \_\ \_\ \_\\ \_\\ \_\ \ \__/.\_\\ \_\ \____\
@@ -61,18 +54,220 @@ __				   __
 				{ section = "startup" },
 			},
 		},
+		indent = { enabled = true },
+		lazygit = {
+			configure = true,
+			-- extra configuration for lazygit that will be merged with the default
+			-- snacks does NOT have a full yaml parser, so if you need `"test"` to appear with the quotes
+			-- you need to double quote it: `"\"test\""`
+			---@class snacks.lazygit.Config: snacks.terminal.Opts
+			---@field args? string[]
+			---@field theme? snacks.lazygit.Theme
+			config = {
+				os = { editPreset = "nvim-remote" },
+				gui = {
+					-- set to an empty string "" to disable icons
+					nerdFontsVersion = "3",
+				},
+			},
+			theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
+			-- Theme for lazygit
+			theme = {
+				[241] = { fg = "Special" },
+				activeBorderColor = { fg = "MatchParen", bold = true },
+				cherryPickedCommitBgColor = { fg = "Identifier" },
+				cherryPickedCommitFgColor = { fg = "Function" },
+				defaultFgColor = { fg = "Normal" },
+				inactiveBorderColor = { fg = "FloatBorder" },
+				optionsTextColor = { fg = "Function" },
+				searchingActiveBorderColor = { fg = "MatchParen", bold = true },
+				selectedLineBgColor = { bg = "Visual" }, -- set to `default` to have no background colour
+				unstagedChangesColor = { fg = "DiagnosticError" },
+			},
+			win = {
+				style = "terminal",
+			},
+		},
+		notifier = { enabled = true },
+		scroll = { enabled = true },
+		statuscolumn = { enabled = true },
+		words = { enabled = true },
+		styles = {
+			notification = {
+				wo = { wrap = true }, -- Wrap notifications
+			},
+		},
 	},
-	--   bigfile = { enabled = true },
-	indent = { enabled = true },
-	--   input = { enabled = true },
-	notifier = { enabled = true },
-	--   quickfile = { enabled = true },
-	scroll = { enabled = true },
-	statuscolumn = { enabled = true },
-	words = { enabled = true },
-	styles = {
-		notification = {
-			wo = { wrap = true }, -- Wrap notifications
+
+	keys = {
+		{
+			"<leader>sg",
+			function()
+				local is_git = (vim.fn.systemlist("git rev-parse --is-inside-work-tree")[1] or "") == "true"
+				if is_git then
+					Snacks.picker.files({ git_only = true })
+				else
+					vim.notify("⚠ Not a git repository", vim.log.levels.WARN)
+				end
+			end,
+			desc = "[S]earch [G]it Files",
+		},
+		{
+			"<leader>sf",
+			function()
+				Snacks.picker.files({ title = "List files in your current working directory" })
+			end,
+			desc = "[S]earch [F]iles",
+		},
+		{
+			"<leader>sb",
+			function()
+				Snacks.picker.buffers({ title = "Open Buffers" })
+			end,
+			desc = "[S]earch [B]uffers",
+		},
+		{
+			"<leader>sh",
+			function()
+				Snacks.picker.help({ title = "Help Tags" })
+			end,
+			desc = "[S]earch [H]elp",
+		},
+
+		-- Grep and word searches
+		{
+			"<leader>sw",
+			function()
+				Snacks.picker.grep_word({
+					title = "Search string under cursor in your current working directory...",
+					buffers = true,
+				})
+			end,
+			desc = "[S]earch current [W]ord",
+			mode = { "n", "x" },
+		},
+		{
+			"<leader>sl",
+			function()
+				Snacks.picker.grep({
+					title = "Search as you type a string in your current working directory...",
+					buffers = true,
+				})
+			end,
+			desc = "[S]earch by [L]ive grep",
+		},
+
+		-- Advanced context-aware fuzzy searching
+		{
+			"<leader>/",
+			function()
+				Snacks.picker.lines({ layout = "select", title = "Fuzzily search in current buffer" })
+			end,
+			desc = "[/] Fuzzily search in current buffer",
+		},
+		{
+			"<leader>s/",
+			function()
+				Snacks.picker.grep({
+					buffers = true,
+					title = "Live Grep in Open Files",
+				})
+			end,
+			desc = "[S]earch [/] in Open Files",
+		},
+
+		-- Snacks picker tracking
+		{
+			"<leader>sd",
+			function()
+				Snacks.picker.diagnostics({
+					title = "Search diagnostics in your current working directory...",
+				})
+			end,
+			desc = "[S]earch [D]iagnostics",
+		},
+		{
+			"<leader>sk",
+			function()
+				Snacks.picker.keymaps({ title = "Keymaps" })
+			end,
+			desc = "[S]earch [K]eymaps",
+		},
+		{
+			"<leader>ss",
+			function()
+				Snacks.picker.pickers({ title = "All Snacks pickers" })
+			end,
+			desc = "[S]earch [S]elect Picker",
+		},
+		{
+			"<leader>sr",
+			function()
+				Snacks.picker.resume({ title = "Resume last search" })
+			end,
+			desc = "[S]earch [R]esume",
+		},
+		{
+			"<leader>s.",
+			function()
+				Snacks.picker.recent({ title = "Search Recent Files" })
+			end,
+			desc = "[S]earch Recent Files",
+		},
+
+		-- Nvim global config lookup shortcut
+		{
+			"<leader>sc",
+			function()
+				Snacks.picker.files({ cwd = vim.fn.stdpath("config"), title = "Search Neovim config files" })
+			end,
+			desc = "[S]earch Neovim [C]onfig files",
+		},
+
+		-- Lazygit
+		{
+			"<leader>gg",
+			function()
+				Snacks.lazygit({ title = "Open lazygit in your current working directory..." })
+			end,
+			desc = "Lazygit",
+		},
+		{
+			"<leader>gl",
+			function()
+				Snacks.lazygit.log({ title = "Open lazygit log in your current working directory..." })
+			end,
+			desc = "Lazygit Log",
+		},
+		{
+			"<leader>gf",
+			function()
+				Snacks.picker.git_log_file({ title = "Open lazygit log for current file..." })
+			end,
+			desc = "Lazygit Log for Current File",
+		},
+
+		-- Git Pickers
+		{
+			"<leader>gb",
+			function()
+				Snacks.picker.git_branches({ title = "Git Branches" })
+			end,
+			desc = "Git Branches",
+		},
+		{
+			"<leader>gs", -- This maps smoothly now since lazygit status uses uppercase S
+			function()
+				Snacks.picker.git_status({ title = "Git Status" })
+			end,
+			desc = "Git Status",
+		},
+		{
+			"<leader>gc",
+			function()
+				Snacks.picker.git_log({ title = "Git Commits" })
+			end,
+			desc = "Git Commits",
 		},
 	},
 }

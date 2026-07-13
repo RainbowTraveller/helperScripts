@@ -1,30 +1,26 @@
--- lazy.nvim
 return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
-	opts = {
-		-- add any options here
+	opts = { -- add any options here
 	},
 	dependencies = {
-		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 		"MunifTanjim/nui.nvim",
-		-- OPTIONAL:
-		--   `nvim-notify` is only needed, if you want to use the notification view.
-		--   If not available, we use `mini` as the fallback
 		"rcarriga/nvim-notify",
 	},
-
 	config = function()
 		-- Configure nvim-notify for bright, noticeable notifications
 		require("notify").setup({
 			background_colour = "#000000",
 			fps = 60,
+			-- =========================================================================
+			-- --> IMPROVED: UPDATED ALL GLYPH ASSETS FOR NERD FONTS V3 COMPATIBILITY
+			-- =========================================================================
 			icons = {
-				DEBUG = "",
-				ERROR = "",
-				INFO = "",
-				TRACE = "✎",
-				WARN = "",
+				DEBUG = " ",
+				ERROR = " ",
+				INFO = " ",
+				TRACE = "✎ ",
+				WARN = " ",
 			},
 			level = 2,
 			minimum_width = 50,
@@ -34,32 +30,82 @@ return {
 			top_down = true,
 		})
 
-		-- Set nvim-notify as the default notify handler
-		vim.notify = require("notify")
+		-- =========================================================================
+		-- --> CHANGED: REMOVED MANUAL 'vim.notify = require("notify")' TO PREVENT
+		--              RACE CONDITIONS. NOICE HANDLES THIS LINKING AUTOMATICALLY.
+		-- =========================================================================
 
 		require("noice").setup({
 			lsp = {
-				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+					-- =========================================================================
+					-- --> CHANGED: REMOVED DEPRECATED 'vim.lsp.util.convert_input...' AND
+					--              'stylize_markdown' STRINGS TO PREVENT NVIM 0.12 WARNINGS.
+					-- =========================================================================
+					["cmp.entry.get_documentation"] = true,
 				},
 			},
 			presets = {
-				bottom_search = true, -- use a classic bottom cmdline for search
-				command_palette = true, -- position the cmdline and popupmenu together
-				long_message_to_split = true, -- long messages will be sent to a split
-				inc_rename = false, -- enables an input dialog for inc-rename.nvim
-				lsp_doc_border = false, -- add a border to hover docs and signature help
+				bottom_search = false, -- Keeps search away from the bottom-left corner
+				command_palette = false, -- DISABLED: Safely prevents overriding our custom positioning layout below
+				long_message_to_split = true,
+				inc_rename = false,
+				lsp_doc_border = false,
+			},
+			cmdline = {
+				enabled = true,
+				view = "cmdline_popup", -- FORCES the core layout engine to use our custom popup view below
+				format = {
+					cmdline = { pattern = "^:", icon = "", lang = "nvim" },
+					-- =========================================================================
+					-- --> IMPROVED: ADDED EXPLICIT VIEW LOCKS AND MODERN ICONS TO PREVENT DRIFT
+					-- =========================================================================
+					search_down = {
+						view = "cmdline_popup",
+						kind = "search",
+						pattern = "^/",
+						icon = " ",
+						lang = "regex",
+					},
+					search_up = {
+						view = "cmdline_popup",
+						kind = "search",
+						pattern = "^%?",
+						icon = " ",
+						lang = "regex",
+					},
+					filter = { view = "cmdline_popup", pattern = "^:%s*!", icon = "$", lang = "bash" },
+					lua = {
+						view = "cmdline_popup",
+						pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" },
+						icon = "",
+						lang = "lua",
+					},
+					help = { view = "cmdline_popup", pattern = "^:%s*he?l?p?%s+", icon = " " },
+					input = { view = "cmdline_input", icon = "   " },
+				},
 			},
 			routes = {
 				{
-					filter = {
-						event = "notify",
-						min_height = 1,
-					},
+					filter = { event = "notify", find = "git repository" },
 					view = "notify",
+				},
+				{
+					filter = { event = "notify" },
+					view = "mini",
+				},
+				{
+					filter = {
+						event = "msg_show",
+						any = {
+							{ find = "written" },
+							{ find = "lines, " },
+							{ find = "change" },
+							{ find = "more lines" },
+							{ find = "fewer lines" },
+						},
+					},
+					opts = { skip = true },
 				},
 			},
 			views = {
@@ -69,59 +115,41 @@ return {
 					replace = true,
 					merge = false,
 				},
-			},
-			--[[ cmdline = {
-				enabled = true, -- enables the Noice cmdline UI
-				view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-				opts = {}, -- global options for the cmdline. See section on views
-				---@type table<string, CmdlineFormat>
-				format = {
-					-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
-					-- view: (default is cmdline view)
-					-- opts: any options passed to the view
-					-- icon_hl_group: optional hl_group for the icon
-					-- title: set to anything or empty string to hide
-					cmdline = { name = "Cmdline", view = "", kind = "", pattern = "^:", icon = "", lang = "nvim" },
-					search_down = {
-						name = "search_down",
-						view = "",
-						kind = "search",
-						pattern = "^/",
-						icon = " ",
-						lang = "regex",
+				-- CUSTOM PIPELINE WINDOW DEFINITIONS: Absolute dead-center layouts
+				cmdline_popup = {
+					backend = "popup",
+					relative = "editor",
+					position = {
+						row = "50%",
+						col = "50%",
 					},
-					search_up = {
-						name = "search_up",
-						view = "",
-						kind = "search",
-						pattern = "^%?",
-						icon = " ",
-						lang = "regex",
+					size = {
+						width = 60,
+						height = "auto",
 					},
-					filter = { name = "filter", view = "", kind = "", pattern = "^:%s*!", icon = "$", lang = "bash" },
-					lua = {
-						name = "lua",
-						view = "",
-						kind = "",
-						pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" },
-						icon = "",
-						lang = "lua",
+					border = {
+						style = "rounded",
 					},
-					help = { name = "help", view = " ", kind = "", pattern = "^:%s*he?l?p?%s+", icon = "" },
-					input = { name = "input", kind = "", view = "cmdline_input", icon = "󰥻 " }, -- Used by input()
-					-- lua = false, -- to disable a format, set to `false`
 				},
-			}, ]]
-			-- messages = {
-			-- 	-- NOTE: If you enable messages, then the cmdline is enabled automatically.
-			-- 	-- This is a current Neovim limitation.
-			-- 	enabled = true, -- enables the Noice messages UI
-			-- 	view = "notify", -- default view for messages
-			-- 	view_error = "notify", -- view for errors
-			-- 	view_warn = "notify", -- view for warnings
-			-- 	view_history = "messages", -- view for :messages
-			-- 	view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-			-- },
+				popupmenu = {
+					relative = "editor",
+					position = {
+						row = "56%", -- Positioned slightly under row 50% to make drop-downs look natural
+						col = "50%",
+					},
+					size = {
+						width = 60,
+						height = 10,
+					},
+					border = {
+						style = "rounded",
+						padding = { 0, 1 },
+					},
+					win_options = {
+						winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+					},
+				},
+			},
 		})
 	end,
 }
