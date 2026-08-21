@@ -54,6 +54,21 @@ return {
 				{ section = "startup" },
 			},
 		},
+		picker = {
+			-- Permanently drop these folders from ever entering your snacks pickers
+			exclude = {
+				"**/.git/*",
+				"**/node_modules/*",
+				"**/dist/*",
+				"**/.cache/*",
+			},
+		},
+		sources = {
+			grep = {
+				hidden = true,
+				ignored = true, -- Bypasses gitignore only during a live grep
+			},
+		},
 		indent = { enabled = true },
 		lazygit = {
 			configure = true,
@@ -140,7 +155,6 @@ return {
 			function()
 				Snacks.picker.grep_word({
 					title = "Search string under cursor in your current working directory...",
-					buffers = true,
 				})
 			end,
 			desc = "[S]earch current [W]ord",
@@ -151,7 +165,6 @@ return {
 			function()
 				Snacks.picker.grep({
 					title = "Search as you type a string in your current working directory...",
-					buffers = true,
 				})
 			end,
 			desc = "[S]earch by [L]ive grep",
