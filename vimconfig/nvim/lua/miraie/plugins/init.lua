@@ -10,7 +10,7 @@ return {
 	require("miraie.plugins.slueth"),
 	require("miraie.plugins.slueth"),
 	require("miraie.plugins.treesitter"),
-	require("miraie.plugins.treesitter.textobjects"),
+	-- require("miraie.plugins.treesitter.textobjects"),
 	require("miraie.plugins.comment"),
 	require("miraie.plugins.whichkey"),
 	require("miraie.plugins.git"),

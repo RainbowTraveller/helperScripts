@@ -96,8 +96,12 @@ return {
 	config = function(_, opts)
 		-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
 
-		---@diagnostic disable-next-line: missing-fields
-		-- require("nvim-treesitter.configs").setup(opts)
+		-- Prefer Safer lazu-loaded require
+		--[[ local ts_configs_ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+		if not ts_configs_ok then
+			---@diagnostic disable-next-line:missing-fields
+			ts_configs.setup(opts)
+		end ]]
 		require("nvim-treesitter").setup(opts)
 
 		-- There are additional nvim-treesitter modules that you can use to interact

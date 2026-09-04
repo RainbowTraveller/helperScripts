@@ -1,3 +1,8 @@
+local fn = vim.fn
+local uv = vim.uv or vim.loop
+local fs = vim.fs or vim.loop.fs
+
+end
 local function resolve_cmd_shim(cmd_path)
 	if not cmd_path:lower():match("%ngserver.cmd$") then
 		return cmd_path
@@ -86,4 +91,4 @@ return {
 
 	filetypes = { "typescript", "html", "typescriptreact", "htmlangular" },
 	root_markers = { "angular.json", "nx.json" },
-}
+

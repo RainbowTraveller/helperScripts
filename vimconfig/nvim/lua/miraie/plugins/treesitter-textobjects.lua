@@ -3,7 +3,7 @@ return {
 	lazy = true,
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
-		"kiyoon/repeatable-move.nvim", -- The plugin that brings back the deleted module
+		-- "kiyoon/repeatable-move.nvim", -- The plugin that brings back the deleted module
 	},
 	opts = {
 		textobjects = {
@@ -91,9 +91,8 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
-		-- 1. Initialize textobjects inside the native 0.12 specs
-		require("nvim-treesitter-textobjects").setup(opts)
+	--[[ config = function(_, opts)
+		local ts_repeat_move = require("repeatable_move")
 
 		-- 2. FIXED LINE: Load the module using the proper hyphen syntax from the kiyoon plugin
 		local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
@@ -107,5 +106,5 @@ return {
 		vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
 		vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
 		vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
-	end,
+	end, ]]
 }
