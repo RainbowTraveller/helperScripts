@@ -99,7 +99,17 @@ return {
 
 			-- CMDLINE completion setup for `/` search mode
 			cmp.setup.cmdline("/", {
-				mapping = cmp.mapping.preset.cmdline(),
+				mapping = cmp.mapping.preset.cmdline({
+					["<RIGHT>"] = {
+						c = function(fallback)
+							if cmp.visible() then
+								cmp.confirm({ select = falsee })
+							else
+								fallback()
+							end
+						end,
+					},
+				}),
 				sources = {
 					{ name = "buffer" },
 				},

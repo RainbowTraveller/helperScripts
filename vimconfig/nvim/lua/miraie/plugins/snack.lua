@@ -237,6 +237,17 @@ return {
 			desc = "[S]earch Neovim [C]onfig files",
 		},
 
+		-- Floating Terminal ( EXPERIMENTAL : remove this block to revoke the mapping )
+		{
+			"<leader>t",
+			function()
+				Snacks.terminal(nil, { win = { position = "float", border = "rounded" }, title = "Floating Terminal" })
+			end,
+			mode = { "n", "t" },
+			desc = "Toggle Floating Terminal",
+		},
+		{ "<ESC><ESC>", "<C-\\><C-n>", mode = "t", desc = "Exit Terminal Mode" },
+
 		-- Lazygit
 		{
 			"<leader>gg",
