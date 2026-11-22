@@ -103,7 +103,7 @@ return {
 					["<RIGHT>"] = {
 						c = function(fallback)
 							if cmp.visible() then
-								cmp.confirm({ select = falsee })
+								cmp.confirm({ select = false })
 							else
 								fallback()
 							end
